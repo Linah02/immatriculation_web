@@ -1,0 +1,86 @@
+#video1 .container {
+    display: flex;
+    background: transparent;
+    width: 100%;
+    height: 500px; /* Hauteur fixe du conteneur */
+    justify-content: space-between;
+}
+
+#video1 .container .image-div {
+    width: 100%; /* 50% de la largeur du conteneur parent */
+    height: 500px; /* Hauteur fixe du div */
+    overflow: hidden; /* Cache la partie de l'image qui dépasse */
+    position: relative; /* Nécessaire si vous utilisez un background-image */
+    background-image: url('/static/myapp/images/torohy.jpg'); /* Assurez-vous que le chemin est correct */
+    background-size: cover; /* L'image couvre tout le div */
+    background-position: center; /* Centre l'image dans le div */
+    background-repeat: no-repeat; /* Evite la répétition de l'image */
+}
+
+#video1 .container .ccc {
+    width: 50%; /* 50% de la largeur du conteneur parent */
+    height: 500px; /* Hauteur fixe du div */
+    overflow: hidden; /* Cache la partie de l'image qui dépasse */
+    position: relative; /* Nécessaire si vous utilisez un background-image */
+    background-size: cover; /* L'image couvre tout le div */
+    background-position: center; /* Centre l'image dans le div */
+    background-repeat: no-repeat; /* Evite la répétition de l'image */
+}
+
+#video1 .container .image-div img {
+    display: none; /* Cache l'élément img si vous utilisez background-image */
+}
+
+/* Effet de zoom lorsque la souris passe dessus */
+#video1 .container .image-div:hover {
+    transform: scale(1.2); /* L'image devient 1.2 fois plus grande */
+    transition: transform 0.3s ease; /* Effet de zoom fluide */
+}
+
+#video1 .container .content-div {
+    justify-content: flex-start; /* Aligne le contenu en haut */
+    width: 50%; /* 50% de la largeur du conteneur parent */
+    height: 500px; /* Hauteur fixe du div */
+    display: flex; /* Permet un alignement facile du texte */
+    flex-direction: column; /* Dispose les éléments verticalement */
+    justify-content: center; /* Centre le contenu verticalement */
+    padding-left: 20px; /* Optionnel : ajout d'un peu de marge à gauche */
+}
+
+#video1 .container .content-div h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    color: #797979;
+    font-weight: bold;
+    position: relative; /* Nécessaire pour utiliser transform */
+    transform: translateY(-10px); /* Décale l'élément vers le haut */
+}
+
+#video1 .container .content-div p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px; /* Taille de police du paragraphe */
+    position: relative;
+    top: -30px; /* Déplace le paragraphe vers le haut */
+}
+
+
+#video1 .container .content-div .action-button1 {
+    width:250px !important; /* Ajuste la largeur en fonction du texte */
+    height: 50px; /* Hauteur fixe du bouton, vous pouvez ajuster selon votre préférence */
+    padding: 10px 20px; /* Espacement interne (haut/bas, gauche/droite) */
+    font-size: 14px; /* Taille de la police du texte */
+    border-radius: 5px; /* Coins arrondis pour un effet visuel agréable */
+    background-color: #808080;; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    border: none; /* Retire la bordure par défaut */
+    cursor: pointer; /* Change le curseur pour indiquer que c'est un bouton cliquable */
+    transition: background-color 0.3s ease; /* Animation de la couleur de fond lors du survol */
+    position: relative;
+    top: -20px; /* Déplace le paragraphe vers le haut */
+}
+
+/* Effet de survol */
+#video1 .container .content-div .action-button1:hover {
+    background-color: #8fc3c6; /* Change la couleur de fond au survol */
+    border-radius: 8px;
+}

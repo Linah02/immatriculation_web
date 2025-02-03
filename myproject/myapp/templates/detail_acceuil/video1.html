@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page avec deux divs</title>
+    <link rel="stylesheet" href="{% static 'myapp/css/video_style.css' %}">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="ccc">
+
+        <div class="image-div">
+                <img src="{% static 'myapp/images/torohy.jpg' %}" alt="Image Description" class="zoom-image">
+        </div>
+    </div>
+        
+        <div class="content-div">
+            <h1> Exprimez votre avis sur nos services et contribuez à la 
+                <br>
+                lutte contre la fraude fiscale.
+            </h1>
+            <br>
+            <button  class="action-button1" onclick="window.location.href='https://www.mef.gov.mg';">Soumettre une suggestion</button>
+        </div>
+    </div>
+</body>
+</html>

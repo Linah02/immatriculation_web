@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidéo avec Titre</title>
+    <style>
+#video2 .video-container {
+    width: 100%;
+    position: relative;
+    overflow: visible; /* Assure que rien n'est caché */
+}
+
+#video2 .video-container video {
+    width: 100%;
+    max-width: 100% !important;
+    height: auto; /* Ajuste automatiquement la hauteur */
+    max-height: 300px; /* Ajustez cette valeur pour réduire la hauteur */
+    object-fit: contain; /* Affiche tout le contenu sans découpage */
+    display: block;
+}
+        .title-overlay {
+            position: absolute;
+            top: 0%;
+            left: 46%;
+            /* transform: translate(-50%, -50%); */
+            background: transparent; /* Vert légèrement transparent */
+            padding: 20px 40px;
+            /* border-radius: 10px; */
+            /* transform: translate(-50%, -50%) rotate(-5deg); Inclinaison du fond */
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+
+
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <!-- Vidéo de fond -->
+        <video autoplay muted loop>
+            <source src="/media/videos/DGI liampivoarana mangarahara ary andrinny fisandratana_360P.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéo.
+        </video>
+        <div class="title-overlay">
+            Les Impôts en Action
+        </div>
+    </div>
+</body>
+</html>

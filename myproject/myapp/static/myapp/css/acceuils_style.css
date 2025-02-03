@@ -1,0 +1,239 @@
+.navbar {
+    display: flex; /* Active Flexbox pour organiser les éléments à l'intérieur */
+    justify-content: flex-end; /* Aligne tout le contenu vers la droite */
+    align-items: center; /* Centre verticalement le contenu dans la navbar */
+    width: calc(100% - 240px); /* Largeur dynamique : 100% de l'écran moins la largeur de la sidebar */
+    height: 50px;
+    background-color: transparent; /* Rend le fond transparent */
+    padding-right: 20px;
+    position: fixed;
+    left: 240px;
+    border-bottom: 2px solid #8fc3c6; /* Ajoute une bordure en haut de 5px avec la couleur bleue */
+}
+
+.navbar.fixed {
+    position: fixed; 
+    /* top: 0;  */
+    width: 1070px;
+    background-color: #8fc3c6;
+    z-index: 1000; 
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  */
+}
+
+
+
+/* Styles par défaut des liens */
+.navbar .menu a,
+.navbar .menu-list ul li a {
+    color: #8fc3c6; /* Couleur initiale */
+    transition: color 0.3s ease; /* Transition fluide pour le changement de couleur */
+}
+
+
+/* Styles pour l'état fixe */
+.navbar.fixed .menu a,
+.navbar.fixed .menu-list ul li a {
+    color: #ffffff; /* Changer en blanc quand la navbar est fixe */
+}
+
+.navbar.fixed .menu a:hover,
+.navbar.fixed .menu-list ul li a:hover {
+    color: #cccccc; /* Couleur légèrement différente au survol */
+}
+
+
+ /* Contenu de la navbar */
+.navbar-content {
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    margin-left: 10px;
+    flex: 1;
+}
+
+
+.navbar .menu {
+    bottom: -30px; 
+    position: relative; /* Ou absolute si nécessaire */
+    display: flex; /* Active Flexbox pour aligner les éléments horizontalement */
+    gap: 20px; /* Ajoute des espaces de 20px entre les éléments directs */
+}
+
+
+.navbar .menu a {
+    text-decoration: none;
+    color: #8fc3c6;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+
+
+.menu-list {
+    position: relative; /* Ou absolute si nécessaire */
+    top: -5px; 
+}
+
+.menu-list ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0; /* Réinitialise toute marge par défaut */
+    padding: 0; /* Réinitialise tout padding par défaut */
+}
+
+.menu-list ul li a {
+    text-decoration: none;
+    color: #8fc3c6;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.menu-list ul li a:hover {
+    color: #000000;
+}
+
+
+.video-container video{
+    width: 100% !important;
+    height: auto;
+    top: 200px; /* Position verticale par rapport au parent */
+    left: 200px; /* Position horizontale par rapport au parent */
+    display: flex; /* Place les deux sections côte à côte */
+    gap: 20px; /* Ajoute un espacement horizontal entre les sections enfants */
+    align-items: center; /* Aligne verticalement les éléments au centre */
+    z-index: 0; 
+}
+
+
+
+
+/* Section des détails */
+.video-details {
+    width: calc(100% / 2); /* Utilisation correcte de calc pour les calculs */
+    height: 400px;
+    padding: 10px;
+    background-color: #f9f9f9; /* Couleur de fond pour démarquer */
+    border: 1px solid #ec3333; /* Bordure discrète */
+    border-radius: 5px; /* Ajoute des bords arrondis */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Légère ombre */
+    overflow: hidden; /* Évite les débordements */
+}
+
+/* Section de la vidéo */
+.video-content {
+    width: 800px;
+    margin-top: 80px;
+    margin-left: auto; /* Centrer dans un conteneur parent */
+    margin-right: auto; /* Centrer dans un conteneur parent */
+    display: block; /* S'assure que l'élément est un bloc */
+}
+
+video {
+    border-radius: 5px; /* Ajoute des bords arrondis */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Légère ombre */
+    max-width: 100%; /* S'assure que la vidéo ne déborde pas */
+    height: auto; /* Conserve les proportions de la vidéo */
+}
+
+
+
+
+/* Footer Styles */
+.footer_acceuil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa; /* Couleur de fond du footer */
+    border-top: 1px solid #e7e7e7;
+}
+
+.footer-text {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.footer-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+.follow-us {
+    color: #5353da;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+
+/* Assure-toi que le body prend tout l'espace sans marge */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.video-container {
+    text-align: center; /* Centre la vidéo */
+    margin: 20px 0; /* Espace autour de la vidéo */
+}
+
+
+  /* Style pour la table de transactions */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table th{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+table td {
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.btn {
+    padding: 5px 10px;
+    background-color: #068e8c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #FEE3C2;
+}
+
+.btn-icon {
+    padding: 10px 10px;
+    color: #FEE3C2; /*Jaune personnalisé*/
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+.btn-icon:hover {
+    color: #068e8c;
+} 

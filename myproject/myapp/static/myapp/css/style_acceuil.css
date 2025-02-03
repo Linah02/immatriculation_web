@@ -1,0 +1,266 @@
+
+/* Style général pour la barre de navigation */
+/* Style général pour la barre de navigation */
+.navbar {
+    display: flex; /* Active Flexbox pour organiser les éléments à l'intérieur */
+    justify-content: flex-end; /* Aligne tout le contenu vers la droite */
+    align-items: center; /* Centre verticalement le contenu dans la navbar */
+    width: calc(100% - 240px); /* Largeur dynamique : 100% de l'écran moins la largeur de la sidebar */
+    height: 50px;
+    background-color: transparent; /* Rend le fond transparent */
+    padding-right: 20px;
+    position: fixed;
+    left: 240px;
+    border-bottom: 2px solid #8fc3c6; /* Ajoute une bordure en haut de 5px avec la couleur bleue */
+}
+
+.navbar.fixed {
+    position: fixed; 
+    background-color:#8fc3c6; ;
+    /* top: 0;  */
+    width: 1070px;
+    z-index: 1000; 
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  */
+}
+
+/* Styles par défaut des liens */
+.navbar .menu a,
+.navbar .menu-list ul li a {
+    color: #8fc3c6; /* Couleur initiale */
+    transition: color 0.3s ease; /* Transition fluide pour le changement de couleur */
+}
+
+/* Styles pour l'état fixe */
+.navbar.fixed .menu a,
+.navbar.fixed .menu-list ul li a {
+    color: #ffffff; /* Changer en blanc quand la navbar est fixe */
+}
+
+.navbar.fixed .menu a:hover,
+.navbar.fixed .menu-list ul li a:hover {
+    color: #cccccc; /* Couleur légèrement différente au survol */
+}
+
+
+
+.menu {
+    display: flex; /* Active Flexbox pour le menu */
+    justify-content: flex-end; /* Pousse tous les enfants (le ul) vers la droite */
+    width: 100%; /* Permet au menu de prendre toute la largeur de la navbar */
+}
+
+.menu ul {
+    display: flex; /* Organise les éléments de liste horizontalement */
+    list-style: none; /* Supprime les puces */
+    margin: 0; /* Élimine les marges par défaut */
+    padding: 0; /* Élimine les espacements internes */
+}
+
+.menu ul li {
+    margin-left: 15px; /* Ajoute de l'espace entre les icônes (optionnel) */
+}
+
+/* Style des liens */
+.navbar .menu ul li {
+    margin-right: 20px;
+}
+
+.navbar .menu ul li a {
+    text-decoration: none; /* Supprimer le soulignement des liens */
+    color: #8fc3c6; /* Couleur des liens par défaut */
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar .menu ul li a:hover {
+    color: rgb(0, 0, 0); /* Couleur lors du survol */
+}
+
+.navbar .menu ul li a.active {
+    color: rgb(0, 0, 0); /* Couleur noire lorsqu'actif */
+    border-radius: 5px; /* Optionnel: arrondi pour un effet de bouton */
+}
+
+
+
+
+
+
+
+
+
+/* Style pour la sidebar */
+.sidebar {
+    width: 200px;
+    background-color: #ffffff;
+    height: 500px; /* Hauteur de la sidebar */
+    /* padding-top: 20px; */
+    position: fixed; /* Position fixe */
+    top:0px; /* Ajuster la position pour qu'elle soit en dessous de la navbar */
+    left: 0; /* Positionne la sidebar à gauche */
+}
+.logo img {
+    width: 200px; /* Ajustez selon la taille désirée */
+    height: auto; /* Maintient le ratio d'aspect de l'image */
+}
+/* Style pour les icônes de la sidebar */
+.sidebar-icon {
+    margin-right: 10px; /* Espace entre l'icône et le texte */
+    font-size: 20px; /* Taille de l'icône */
+    color: white; /* Couleur de l'icône */
+}
+
+/* Style pour la liste dans la sidebar */
+.sidebar ul {
+    list-style: none; /* Supprime les puces de la liste */
+    padding: 0; /* Supprime le padding par défaut */
+}
+
+.sidebar ul li {
+    margin: 15px 0; /* Espace entre les éléments de la liste */
+}
+
+.sidebar ul li a {
+    color: white; /* Couleur du texte */
+    text-decoration: none; /* Supprime le soulignement */
+    padding: 10px; /* Padding autour du texte */
+    display: flex; /* Utilise flexbox pour aligner l'icône et le texte */
+    align-items: center; /* Centre verticalement les éléments */
+}
+
+.sidebar ul li a:hover {
+    background-color: hsl(0, 0%, 85%); /* Change la couleur de fond au survol */
+}
+
+.main-content {
+    margin-left: 220px;
+    margin-top: 100px;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+p {
+
+    font-size: 18px;
+}
+
+
+/* Footer Styles */
+.footer_acceuil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa; /* Couleur de fond du footer */
+    border-top: 1px solid #e7e7e7;
+}
+
+.footer-text {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.footer-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+.follow-us {
+    color: #5353da;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Social icons styles */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-icon {
+    width: 30px;
+    margin: 0 10px;
+    transition: transform 0.3s;
+}
+
+.social-icon:hover {
+    transform: scale(1.2); /* Légère animation d'agrandissement au survol */
+}
+
+
+
+/* Assure-toi que le body prend tout l'espace sans marge */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.video-container {
+    text-align: center; /* Centre la vidéo */
+    margin: 20px 0; /* Espace autour de la vidéo */
+}
+
+
+  /* Style pour la table de transactions */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table th{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+table td {
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.btn {
+    padding: 5px 10px;
+    background-color: #8fc3c6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #616161;
+}
+
+.btn-icon {
+    padding: 10px 10px;
+    color: #616161; /*Jaune personnalisé*/
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+.btn-icon:hover {
+    color: #8fc3c6;
+} 
+

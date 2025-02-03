@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgb(255, 255, 255);
+}
+
+#logo .main-content .container {
+    display: flex;
+    background: transparent;
+    width: 100%;
+    height: 600px; /* Hauteur fixe */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container .image-div{
+    flex: 1;
+    background-color: transparent;
+}
+.container .image-div img {
+    top: 100px !important;
+    max-width: 500px;
+    max-height: auto;
+}
+
+.container .content-div {
+    text-align: left !important;
+    padding: 200px 100px 50px 100px !important;
+    flex: 1 !important;
+    max-width: calc(100% / 2) !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+}
+/* Animation du titre h1 - lettres qui apparaissent une à une */
+.animated-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #797979;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden; /* Assure que le texte est caché avant l'animation */
+    white-space: nowrap; /* Empêche le texte de se couper sur plusieurs lignes */
+    display: inline-block;
+    /* animation: revealText 3s steps(40) forwards; L'animation des lettres */
+    width: auto;
+    animation: slideDown 2s ease-out forwards;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Style du bouton */
+.action-button {
+    display: inline-block;
+    padding: 10px 20px;
+    height: 50px !important;
+    font-size: 1rem;
+    color: #fff;
+    background-color: rgba(128, 128, 128, 0.8);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease, border-radius 0.3s ease;
+    opacity: 0; /* Commence invisible */
+    transform: translateX(50px); /* Commence décalé à droite */
+    animation: slideUp 2s ease-out forwards;
+}
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+/* Style du bouton au survol */
+.action-button:hover {
+    background-color: #8fc3c6;
+    transform: scale(0.95); /* Réduit la taille du bouton */
+    border-radius: 10px; /* Augmente le rayon des bords */
+}

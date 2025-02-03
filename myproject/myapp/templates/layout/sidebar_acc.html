@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <title>Sidebar Droite</title>
+  <link rel="stylesheet" href="{% static 'myapp/css/sidebar.css'%}">
+  <link rel="stylesheet" href="{% static 'myapp/css/style_logo.css'%}">
+</head>
+<body>
+    <div class="logo-container">
+        <img src="{% static 'myapp/images/LOGO monochrome MEF_DGI.png'%}" alt="Logo">
+      </div>
+  <!-- Barre de navigation -->
+  <div class="sidebar">
+    <a href="http://127.0.0.1:8000/acceuils/" class="sidebar-item">
+        <i class="fas fa-home"></i>
+      </a>
+      <a href="http://127.0.0.1:8000/home/" class="sidebar-item">
+        <i class="fas fa-user-plus"></i>
+      </a>
+  </div>
+ 
+  </div>
+
+</body>
+</html>

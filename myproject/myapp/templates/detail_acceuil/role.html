@@ -1,0 +1,155 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+      .logo_role {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Prend la hauteur du conteneur */
+}
+
+.logo_role img {
+    max-width: 80px; /* Ajustez la taille maximale de l'image */
+    max-height: 80px;
+}
+
+        /* Conteneur principal pour centrer les divs */
+        #role .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* height: auto; */
+            max-width: 100%;
+            max-height: 200px;
+            position: center;
+            gap: 50px; /* Ajoute un espacement léger entre les divs */
+        }
+
+        /* Chaque div avec animation */
+        .flip-box {
+            width: 300px;
+            height: 150px;
+            perspective: 1000px; /* Permet l'effet de retournement */
+        }
+        /* Le contenu de chaque div qui sera retourné */
+        .flip-box-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px; /* Arrondit les coins */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ajoute une ombre douce */
+            transition: transform 0.6s;
+            transform-style: preserve-3d; /* Important pour le retournement 3D */
+        }
+
+        /* Le recto de la carte */
+        .flip-box-front, .flip-box-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            gap: 15px;
+            backface-visibility: hidden; /* Cache le verso lorsqu'il est tourné */
+            display: flex;
+            border-radius: 15px; /* Arrondit les coins */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ajoute une ombre douce */
+    overflow: hidden; /* S'assure que le contenu respecte les bordures arrondies */
+
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .flip-box-front {
+            background-color: #8fc3c6;
+            color: white;
+        }
+
+        .flip-box-back {
+            background-color: white;
+            color: black;
+            transform: rotateY(180deg); /* Retourner le verso */
+        }
+
+        /* Effet lors du survol de la souris */
+        .flip-box:hover .flip-box-inner {
+            transform: rotateY(180deg); /* Retourner le contenu */
+        }
+
+        /* Icône et texte */
+        .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        .title .title_compte{
+            color: #797979;
+            font-size: 2.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <div class="title">
+        <h1 class="title_compte">Accedez facilement à 
+            <br>vos compte ici!</h1>
+    </div>
+
+</center>
+<br>
+<br>
+    <div class="container">
+      <!-- NIFONLINE (Inscription pour un N° d'Identité Fiscale) -->
+<a href="https://hetraonline.impots.mg/accueil/papier_inscri" class="flip-box">
+    <div class="flip-box-inner">
+        <div class="flip-box-front">
+            <div class="icon"><i class="fas fa-id-card"></i></div>
+            <div>NIFONLINE</div>
+        </div>
+        <div class="flip-box-back">
+            <div class="logo_role">
+                <img src="{% static 'myapp/images/Logo-DGI.jpg' %}" alt="Logo DGI">
+            </div>
+        </div>
+    </div>
+</a>
+
+<a href="https://entreprises.impots.mg/hetraonline/accueil" class="flip-box">
+    <div class="flip-box-inner">
+        <div class="flip-box-front">
+            <div class="icon"><i class="fas fa-credit-card"></i></div>
+            <div>e-HETRA</div>
+        </div>
+        <div class="flip-box-back">
+            <div class="logo_role">
+                <img src="{% static 'myapp/images/Logo-DGI.jpg' %}" alt="Logo DGI">
+            </div>
+        </div>
+    </div>
+</a>
+<a href="http://127.0.0.1:8000/connexion/" class="flip-box">
+    <div class="flip-box-inner">
+        <div class="flip-box-front">
+            <div class="icon"><i class="fas fa-user"></i></div>
+            <div>Mon Compte</div>
+        </div>
+        <div class="flip-box-back">
+            <div class="logo_role">
+                <img src="{% static 'myapp/images/Logo-DGI.jpg' %}" alt="Logo DGI">
+            </div>
+        </div>
+    </div>
+</a>
+
+    </div>
+</body>
+</html>

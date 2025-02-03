@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidéo avec Navigation</title>
+    <link rel="stylesheet" href="{% static 'myapp/css/list_video_style.css' %}">
+    <style>
+        /* Vos styles CSS */
+        #video .video-container {
+            position: relative;
+            background-image: url("{% static 'myapp/images/Login/Capture d’écran 2024-11-29 131202.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            width: 100%;
+            height: 620px;
+            overflow: hidden;
+        }
+        .video-container .video-wrapper .video-title{
+            text-align: center;
+            color: #fff;
+        }
+        .video-description {
+            text-align: center;
+            color: #fff;
+        }
+        .navigation {
+            position: relative;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .nav-point {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #888;
+            cursor: pointer;
+        }
+        .nav-point.active {
+            background-color: #007bff;
+        }
+        .video-wrapper {
+            position: relative;
+            width: 500px;
+            left: 400px;
+            height: 500px;
+            overflow: hidden;
+            display: none;
+        }
+        .video-wrapper.active {
+            display: block;
+        }
+        .video-slide {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <!-- Vidéo 1 -->
+        <div class="video-wrapper active">
+            <h1 class="video-title">"Saviez-vous ?"</h1>
+            <p class="video-description">La DGI de maintenant et de demain</p>
+            <video class="video-slide" src="/media/videos/DGI liampivoarana mangarahara ary andrinny fisandratana_360P.mp4" controls autoplay muted></video>
+        </div>
+        
+        <!-- Vidéo 2 -->
+        <div class="video-wrapper">
+            <h1 class="video-title">"Saviez-vous ?"</h1>
+            <p class="video-description">Les démarches de premier demande de la carte fiscale</p>
+            <video class="video-slide" src="/media/videos/7.mp4" controls autoplay></video>
+        </div>
+        <!-- Vidéo 3 -->
+        <div class="video-wrapper">
+            <h1 class="video-title">"Saviez-vous ?"</h1>
+            <p class="video-description">Les démarche de renouvelement de la carte fiscale</p>
+            <video class="video-slide" src="/media/videos/6.mp4" controls autoplay></video>
+        </div>
+        <div class="video-wrapper">
+            <h1 class="video-title">"Saviez-vous ?"</h1>
+            <p class="video-description">Prenez connaissance de vos droit et protégez-vous !</p>
+            <video class="video-slide" src="/media/videos/1.mp4" controls autoplay></video>
+        </div>
+        <!-- Vidéo 4 -->
+        <div class="video-wrapper">
+            <h1 class="video-title">"Saviez-vous ?"</h1>
+            <p class="video-description">La strucutre anti-corruption</p>
+            <video class="video-slide" src="/media/videos/0.mp4" controls autoplay></video>
+        </div>
+        <!-- Vidéo 5 -->
+        <div class="video-wrapper">
+            <h1 class="video-title">"Saviez-vous ?"</h1>
+            <p class="video-description"> L'Impôt Foncier sur les Propriétés Bâties (IFPB)</p>
+            <video class="video-slide" src="/media/videos/2.mp4" controls autoplay></video>
+        </div>
+    </div>
+    <center>
+        <div class="navigation">
+            <span class="nav-point active" data-video="1"></span>
+            <span class="nav-point" data-video="2"></span>
+            <span class="nav-point" data-video="3"></span>
+            <span class="nav-point" data-video="4"></span>
+            <span class="nav-point" data-video="5"></span>
+            <span class="nav-point" data-video="6"></span>
+        </div>
+    </center>
+    <script>
+        // Gestion des vidéos et navigation
+        document.querySelectorAll('.nav-point').forEach((point, index) => {
+            point.addEventListener('click', () => {
+                changeVideo(index);
+            });
+        });
+
+        function changeVideo(index) {
+            const videoWrappers = document.querySelectorAll('.video-wrapper');
+            const navPoints = document.querySelectorAll('.nav-point');
+            const videos = document.querySelectorAll('video');
+
+            // Mettre en pause toutes les vidéos
+            videos.forEach(video => video.pause());
+
+            // Masquer toutes les vidéos
+            videoWrappers.forEach(wrapper => wrapper.classList.remove('active'));
+            navPoints.forEach(point => point.classList.remove('active'));
+
+            // Afficher la vidéo et activer le point correspondant
+            videoWrappers[index].classList.add('active');
+            navPoints[index].classList.add('active');
+
+            // Reprendre la lecture de la vidéo sélectionnée
+            const activeVideo = videoWrappers[index].querySelector('video');
+            activeVideo.play();
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+    const videoWrappers = document.querySelectorAll('.video-wrapper');
+    const navPoints = document.querySelectorAll('.nav-point');
+    const videos = document.querySelectorAll('video');
+
+    // Fonction pour changer la vidéo
+    function changeVideo(index) {
+        // Mettre en pause toutes les vidéos
+        videos.forEach(video => video.pause());
+
+        // Masquer toutes les vidéos
+        videoWrappers.forEach(wrapper => wrapper.classList.remove('active'));
+        navPoints.forEach(point => point.classList.remove('active'));
+
+        // Afficher la vidéo et activer le point correspondant
+        videoWrappers[index].classList.add('active');
+        navPoints[index].classList.add('active');
+
+        // Reprendre la lecture de la vidéo sélectionnée
+        const activeVideo = videoWrappers[index].querySelector('video');
+        if (activeVideo) {
+            activeVideo.play();
+        }
+    }
+
+    // Ajouter l'événement 'ended' à chaque vidéo
+    videos.forEach((video, index) => {
+        video.addEventListener('ended', () => {
+            const nextIndex = (index + 1) % videoWrappers.length; // Boucle vers la première vidéo si c'est la dernière
+            changeVideo(nextIndex);
+        });
+    });
+
+    // Lance la première vidéo automatiquement
+    const firstVideo = document.querySelector('.video-wrapper.active video');
+    if (firstVideo) {
+        firstVideo.play();
+    }
+});
+
+    </script>
+</body>
+</html>

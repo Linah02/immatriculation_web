@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mon Site{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/footer_style.css' %}">
+<style>
+    .footer_acceuil{
+        background-color: gainsboro;
+    }
+  
+.footer-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    top: 0px;
+    position: relative;
+    top: -15px !important;
+    color: #6c757d;
+}
+
+</style>
+</head>
+<body>
+    <!-- Contenu principal de la page -->
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <footer class="footer_acceuil">
+        <center>
+        <div class="d-sm-flex flex-column justify-content-center">
+            <br>
+            <br>
+            <span class="footer-text">
+                Direction Générale des Impôts - Immeuble des Finances et du Budget Antaninarenina Antananarivo 101 - BP 863.
+            </span>
+            <br>
+        
+        </div>
+    </center>
+    </footer>
+
+</body>
+</html>
