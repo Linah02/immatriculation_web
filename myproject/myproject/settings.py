@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
-
+import dj_database_url
 from pathlib import Path
 import firebase_admin # type: ignore
 from firebase_admin import credentials # type: ignore
@@ -31,9 +31,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ue0^2rmtj*1cca(e_ywcm*cu!gnxh8s1rmjffv$k-otf9l#r+w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.1.199', 'localhost', '127.0.0.1', '0.0.0.0','192.168.0.185']
+ALLOWED_HOSTS = ['.onrender.com','192.168.1.199', 'localhost', '127.0.0.1', '0.0.0.0','192.168.0.185']
 
 SECURE_CONTENT_TYPE_NOSNIFF = False
 X_FRAME_OPTIONS = 'SAMEORIGIN'
@@ -125,16 +125,21 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'immatriculation',  # Remplacez par le nom de votre base de données
+#         'USER': 'postgres',  # Remplacez par le nom d'utilisateur PostgreSQL
+#         'PASSWORD': 'root',  # Remplacez par votre mot de passe PostgreSQL
+#         'HOST': 'localhost',  # Remplacez si votre base est hébergée ailleurs
+#         'PORT': '5433',  # Port par défaut de PostgreSQL
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'immatriculation',  # Remplacez par le nom de votre base de données
-        'USER': 'postgres',  # Remplacez par le nom d'utilisateur PostgreSQL
-        'PASSWORD': 'root',  # Remplacez par votre mot de passe PostgreSQL
-        'HOST': 'localhost',  # Remplacez si votre base est hébergée ailleurs
-        'PORT': '5433',  # Port par défaut de PostgreSQL
-    }
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -176,7 +181,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",  # Chemin vers le dossier des fichiers statiques
