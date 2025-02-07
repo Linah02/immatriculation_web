@@ -11,10 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
-import firebase_admin # type: ignore
-from firebase_admin import credentials # type: ignore
-cred = credentials.Certificate("media/espace-contribuable-firebase-adminsdk-c9ae7-c39bdf7224.json")
-firebase_admin.initialize_app(cred)
 from decouple import config 
 import dj_database_url
 
