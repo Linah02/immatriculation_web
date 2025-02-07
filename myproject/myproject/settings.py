@@ -10,30 +10,27 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
-import dj_database_url
 from pathlib import Path
 import firebase_admin # type: ignore
 from firebase_admin import credentials # type: ignore
-
 cred = credentials.Certificate("media/espace-contribuable-firebase-adminsdk-c9ae7-c39bdf7224.json")
 firebase_admin.initialize_app(cred)
-
-
+from decouple import config 
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ue0^2rmtj*1cca(e_ywcm*cu!gnxh8s1rmjffv$k-otf9l#r+w'
+SECRET_KEY =config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['.onrender.com','192.168.1.199', 'localhost', '127.0.0.1', '0.0.0.0','192.168.0.185']
+# ALLOWED_HOSTS = ['192.168.1.199', 'localhost', '127.0.0.1', '0.0.0.0','192.168.0.185']
+ALLOWED_HOSTS = ['*']
 
 SECURE_CONTENT_TYPE_NOSNIFF = False
 X_FRAME_OPTIONS = 'SAMEORIGIN'
@@ -137,9 +134,8 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    'default': dj_database_url.parse(config('DATABASE_URL'))
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
