@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myproject.myapp',#integration de mon app dans mon projet
+    'myproject.myapp.apps.MyappConfig',#integration de mon app dans mon projet
     'django.contrib.humanize',
     'corsheaders',
 ]
