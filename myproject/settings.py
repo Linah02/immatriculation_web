@@ -69,7 +69,7 @@ SESSION_COOKIE_NAME = 'sessionid'  # Nom du cookie de session
 SESSION_COOKIE_AGE = 3600  # Durée de vie du cookie en secondes
 SESSION_COOKIE_HTTPONLY = True
 CORS_ALLOW_CREDENTIALS = True
-ROOT_URLCONF = 'myproject.myproject.urls'
+ROOT_URLCONF = 'myproject.urls'
 
 # TEMPLATES = [
 #     {
@@ -105,7 +105,7 @@ TEMPLATES = [
 
 
 
-WSGI_APPLICATION = 'myproject.myproject.wsgi.application'
+WSGI_APPLICATION = 'myproject.wsgi.application'
 
 
 # Database
@@ -166,15 +166,13 @@ USE_I18N = True
 USE_TZ = True
 
 # Chemin vers le dossier des fichiers médias
-MEDIA_URL = 'myproject/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'myproject/media/')
-
-
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = 'myproject/static/'
+STATIC_URL = 'static/'
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",  # Chemin vers le dossier des fichiers statiques
 # ]
