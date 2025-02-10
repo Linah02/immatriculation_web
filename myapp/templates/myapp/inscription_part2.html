@@ -38,19 +38,31 @@
     
     </style>
     <div class="page-container">
+        <h3>Formulaire Partie 2 - Données soumises :</h3>
+<p><strong>CIN :</strong> {{ request.POST.cin }}</p>
+<p><strong>Contact :</strong> {{ request.POST.contact }}</p>
+<p><strong>Lieu de délivrance :</strong> {{ request.POST.lieu_delivrance }}</p>
+<p><strong>Date de délivrance :</strong> {{ request.POST.date_delivrance }}</p>
+<p><strong>Fokontany :</strong> {{ request.POST.fkt_no }}</p>
+<p><strong>Email :</strong> {{ request.POST.email }}</p>
+{% if operateurs and operateurs|length > 0 %}
+    <h3>Liste des opérateurs correspondants:</h3>
+    <ul>
+        {% for operateur in operateurs %}
+            <li>CIN: {{ operateur.cin }} | Contact: {{ operateur.contact }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun opérateur correspondant trouvé.</p>
+{% endif %}
+
         <!-- Sidebar et contenu principal côte à côte -->
         <div class="content-wrapper">
             <main class="main-content">
 <div class="container">
     <h2 style="margin-bottom: 1px;">Résidence et CIN</h2>
     <p style="color: rgb(99, 141, 161); margin-top: 1px;">Les champs marqués en <class  style="color: red;">***</class> sont obligatoires</p>
-    <h3>Formulaire Partie 1 - Données récupérées :</h3>
-    <p>Nom: {{ form_data.nom }}</p>
-    <p>Prénom: {{ form_data.prenom }}</p>
-    <p>Date de naissance: {{ form_data.date_naissance }}</p>
-    <p>Lieu de naissance: {{ form_data.lieu_naissance }}</p>
-    <p>Genre: {{ form_data.genre }}</p>
-    <p>Situation matrimoniale: {{ form_data.situation_matrimoniale }}</p>
+
     <form method="post" action="{% url 'form_part2' %}">
         {% csrf_token %}
         <div class="container_card">
