@@ -210,13 +210,12 @@ def valider_cin_et_contact(cin, contact):
 #     })
 
 def form_part2(request):
+    url = 'https://immatriculation-prenif.onrender.com/get_all_operateurs/'  
     show_modal = False
     success_message = ""
     operateurs = None
     error_message = ""  # Pour stocker les messages d'erreur
-
-    form_data = request.session.get('form_data', {})  # Récupérer les données de la session
-
+ 
     if request.method == 'POST':
         # Récupération des données du formulaire de la deuxième partie
         lieu_delivrance = request.POST.get('lieu_delivrance')
@@ -227,6 +226,11 @@ def form_part2(request):
         email = request.POST.get('email')
 
         try:
+            response = requests.get(url, timeout=30)
+            response.raise_for_status()  # Vérifier les erreurs HTTP
+            operateurs = response.json()
+            form_data = request.session.get('form_data', {})  # Récupérer les données de la session
+
             # Appel de la fonction de validation pour CIN et contact
             # operateurs = valider_cin_et_contact(cin, contact)  # Récupérer les opérateurs
 
