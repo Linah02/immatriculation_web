@@ -68,7 +68,7 @@ class FloatConverter:
 register_converter(FloatConverter, 'float')
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('acceuils/', acceuils, name='acceuils'),
+    path('accueils/', acceuils, name='accueils'),
     path('home/', home, name='home'),
     path('form-part2/', form_part2, name='form_part2'),
     path('connexion/', login, name='connexion'),
