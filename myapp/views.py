@@ -213,6 +213,7 @@ def form_part2(request):
     url = 'https://immatriculation-prenif.onrender.com/get_all_operateurs/'  
     show_modal = False
     success_message = ""
+    form_data = None
     operateurs = None
     error_message = ""  # Pour stocker les messages d'erreur
  
@@ -224,6 +225,7 @@ def form_part2(request):
         contact = request.POST.get('contact')
         fokontany = request.POST.get('fkt_no')
         email = request.POST.get('email')
+    
 
         try:
             response = requests.get(url, timeout=30)
@@ -271,7 +273,7 @@ def form_part2(request):
             show_modal = False
 
     return render(request, 'myapp/inscription_part2.html', {
-        'form_data': form_data,  # Passer les données du formulaire à la page
+        # 'form_data': form_data,  # Passer les données du formulaire à la page
         'success_message': success_message,
         'error_message': error_message,  # Envoyer le message d'erreur au template
         'show_modal': show_modal,
