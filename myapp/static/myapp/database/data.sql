@@ -1,7 +1,7 @@
 insert into myapp_genre (genre) values ('homme');
 insert into myapp_genre (genre) values ('femme');
 
-insert into myapp_SIT_MATRIM (Situation) values ('marie(e)');
+insert into myapp_SIT_MATRIM (Situation) values ('marié(e)');
 insert into myapp_SIT_MATRIM (Situation) values ('célibataire');
 insert into myapp_SIT_MATRIM (Situation) values ('divorcé(e)');
 insert into myapp_SIT_MATRIM (Situation) values ('veuf(ve)');

@@ -86,7 +86,7 @@ def get_all_operateurs(request):
 
 def valider_cin_et_contact(cin, contact):
     # URL de l'API où les opérateurs sont récupérés
-    url = 'http://127.0.0.1:8000/get_all_operateurs/'  
+    url = 'https://immatriculation-prenif.onrender.com/get_all_operateurs/'  
     # Faire la requête à l'API pour récupérer tous les opérateurs
     response = requests.get(url)
 
