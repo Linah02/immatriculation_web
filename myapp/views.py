@@ -228,7 +228,7 @@ def form_part2(request):
 
         try:
             # Appel de la fonction de validation pour CIN et contact
-            operateurs = valider_cin_et_contact(cin, contact)  # Récupérer les opérateurs
+            # operateurs = valider_cin_et_contact(cin, contact)  # Récupérer les opérateurs
 
             # Si la validation réussie, continuer le traitement
             genre_instance = get_object_or_404(Genre, genre=form_data['genre'])
