@@ -84,24 +84,40 @@ def get_all_operateurs(request):
 
 
 
-def valider_cin_et_contact(cin, contact):
-    # URL de l'API où les opérateurs sont récupérés
-    url = 'https://immatriculation-prenif.onrender.com/get_all_operateurs/'  
-    # Faire la requête à l'API pour récupérer tous les opérateurs
-    response = requests.get(url)
+# def valider_cin_et_contact(cin, contact):
+#     # URL de l'API où les opérateurs sont récupérés
+#     url = 'https://immatriculation-prenif.onrender.com/get_all_operateurs/'  
+#     # Faire la requête à l'API pour récupérer tous les opérateurs
+#     response = requests.get(url)
 
-    if response.status_code == 200:
-        operateurs = response.json()
+#     if response.status_code == 200:
+#         operateurs = response.json()
         
+#         for operateur in operateurs:
+#             if operateur['cin'] == cin and operateur['contact'] == contact:
+#                 return True  # Si le CIN et le contact correspondent, on retourne True
+        
+#         # Si aucun opérateur avec ce CIN et contact n'a été trouvé, lever une exception
+#         raise ValidationError("❌Le CIN ou le contact ne correspond pas.")
+#     else:
+#         raise ValidationError("Erreur lors de la validation avec l'API.")
+
+from requests.exceptions import Timeout, RequestException
+
+def valider_cin_et_contact(cin, contact):
+    url = 'https://immatriculation-prenif.onrender.com/get_all_operateurs/'  
+    try:
+        response = requests.get(url, timeout=30)
+        response.raise_for_status()  # Pour vérifier les codes de statut d'erreur HTTP
+        operateurs = response.json()
         for operateur in operateurs:
             if operateur['cin'] == cin and operateur['contact'] == contact:
-                return True  # Si le CIN et le contact correspondent, on retourne True
-        
-        # Si aucun opérateur avec ce CIN et contact n'a été trouvé, lever une exception
+                return True
         raise ValidationError("❌Le CIN ou le contact ne correspond pas.")
-    else:
-        raise ValidationError("Erreur lors de la validation avec l'API.")
-
+    except Timeout:
+        raise ValidationError("❌Le délai d'attente pour la connexion a expiré.")
+    except RequestException:
+        raise ValidationError("❌Erreur lors de la communication avec l'API.")
 
 
 def form_part2(request):
@@ -109,15 +125,16 @@ def form_part2(request):
     success_message = ""
     error_message = ""  # Pour stocker les messages d'erreur
 
+    form_data = request.session.get('form_data', {})  # Récupérer les données de la session
+
     if request.method == 'POST':
+        # Récupération des données du formulaire de la deuxième partie
         lieu_delivrance = request.POST.get('lieu_delivrance')
         cin = request.POST.get('cin')
         date_delivrance = request.POST.get('date_delivrance')
         contact = request.POST.get('contact')
         fokontany = request.POST.get('fkt_no')
         email = request.POST.get('email')
-
-        form_data = request.session.get('form_data', {})
 
         try:
             # Appel de la fonction de validation pour CIN et contact
@@ -160,11 +177,11 @@ def form_part2(request):
             show_modal = False
 
     return render(request, 'myapp/inscription_part2.html', {
+        'form_data': form_data,  # Passer les données du formulaire à la page
         'success_message': success_message,
         'error_message': error_message,  # Envoyer le message d'erreur au template
         'show_modal': show_modal,
     })
-
 
 def envoyer_email(email, prenif, mot_de_passe):
     """Envoie un email avec les informations d'inscription."""
