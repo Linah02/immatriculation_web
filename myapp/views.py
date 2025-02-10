@@ -212,6 +212,7 @@ def valider_cin_et_contact(cin, contact):
 def form_part2(request):
     show_modal = False
     success_message = ""
+    operateurs = None
     error_message = ""  # Pour stocker les messages d'erreur
 
     form_data = request.session.get('form_data', {})  # Récupérer les données de la session
