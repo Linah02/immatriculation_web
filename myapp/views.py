@@ -86,7 +86,7 @@ def get_all_operateurs(request):
 
 # def valider_cin_et_contact(cin, contact):
 #     # URL de l'API où les opérateurs sont récupérés
-#     url = 'https://immatriculation-prenif.onrender.com/get_all_operateurs/'  
+#     url = 'http://127.0.0.1:8000/get_all_operateurs/'  
 #     # Faire la requête à l'API pour récupérer tous les opérateurs
 #     response = requests.get(url)
 
@@ -101,142 +101,44 @@ def get_all_operateurs(request):
 #         raise ValidationError("❌Le CIN ou le contact ne correspond pas.")
 #     else:
 #         raise ValidationError("Erreur lors de la validation avec l'API.")
-import logging
 
-# def valider_cin_et_contact(cin, contact):
-#     url = 'https://immatriculation-prenif.onrender.com/get_all_operateurs/'  
-#     try:
-#         response = requests.get(url, timeout=30)
-#         response.raise_for_status()  # Pour vérifier les codes de statut d'erreur HTTP
-#         operateurs = response.json()
+from django.core.exceptions import ValidationError
+from .models import Operateur  # Assurez-vous que le modèle Operateur est importé correctement
 
-#         # Affichage des données pour debug
-#         print(f"CIN: {cin}, Contact: {contact}")  # Afficher dans la console
-#         logging.info(f"CIN: {cin}, Contact: {contact}")  # Optionnel : logger l'info
-
-#         for operateur in operateurs:
-#             if operateur['cin'] == cin and operateur['contact'] == contact:
-#                 return True
-
-#         raise ValidationError("❌Le CIN ou le contact ne correspond pas.")
-#     except requests.Timeout:
-#         raise ValidationError("❌Le délai d'attente pour la connexion a expiré.")
-#     except requests.RequestException:
-#         raise ValidationError("❌Erreur lors de la communication avec l'API.")
 def valider_cin_et_contact(cin, contact):
-    url = 'https://immatriculation-prenif.onrender.com/get_all_operateurs/'  
-    try:
-        response = requests.get(url, timeout=30)
-        response.raise_for_status()  # Vérifier les erreurs HTTP
-        operateurs = response.json()
+    # Récupérer tous les opérateurs depuis la base de données
+    operateurs = Operateur.objects.all()
 
-        # Affichage des données pour debug
-        print(f"CIN: {cin}, Contact: {contact}")
-        logging.info(f"CIN: {cin}, Contact: {contact}")
+    # Vérifier si un opérateur avec ce CIN et ce contact existe
+    for operateur in operateurs:
+        if operateur.cin == cin and operateur.contact == contact:
+            return operateurs  # Si le CIN et le contact correspondent, on retourne True
 
-        # Retourner les opérateurs pour les afficher dans le template
-        return operateurs
-    except requests.Timeout:
-        raise ValidationError("❌Le délai d'attente pour la connexion a expiré.")
-    except requests.RequestException:
-        raise ValidationError("❌Erreur lors de la communication avec l'API.")
+    # Si aucun opérateur avec ce CIN et contact n'a été trouvé, lever une exception
+    raise ValidationError("❌Le CIN ou le contact ne correspond pas.")
 
-
-# def form_part2(request):
-#     show_modal = False  # Pour contrôler l'affichage du modal de succès
-#     success_message = ""
-#     error_message = ""  # Pour stocker les messages d'erreur
-
-#     form_data = request.session.get('form_data', {})  # Récupérer les données de la session
-
-#     if request.method == 'POST':
-#         # Récupération des données du formulaire de la deuxième partie
-#         lieu_delivrance = request.POST.get('lieu_delivrance')
-#         cin = request.POST.get('cin')
-#         date_delivrance = request.POST.get('date_delivrance')
-#         contact = request.POST.get('contact')
-#         fokontany = request.POST.get('fkt_no')
-#         email = request.POST.get('email')
-
-#         try:
-#             # Affichage des données pour vérification
-#             print(f"CIN: {cin}, Contact: {contact}")  # Afficher dans la console
-#             logging.info(f"CIN: {cin}, Contact: {contact}")  # Optionnel : logger l'info
-
-#             # Appel de la fonction de validation pour CIN et contact
-#             # valider_cin_et_contact(cin, contact)
-
-#             # Si validation réussie, continuer le traitement
-#             genre_instance = get_object_or_404(Genre, genre=form_data['genre'])
-#             situation_matrimoniale_instance = get_object_or_404(Sit_matrim, id=form_data['situation_matrimoniale'])
-
-#             contribuable = Contribuable(
-#                 nom=form_data['nom'],
-#                 prenom=form_data['prenom'],
-#                 date_naissance=form_data['date_naissance'],
-#                 genre=genre_instance,
-#                 situation_matrimoniale=situation_matrimoniale_instance,
-#                 lieu_naissance=form_data['lieu_naissance'],
-#                 lieu_delivrance=lieu_delivrance,
-#                 cin=cin,
-#                 date_delivrance=date_delivrance,
-#                 contact=contact,
-#                 fokontany=fokontany,
-#                 email=email,
-#             )
-#             # contribuable.save()
-
-#             prenif, mot_de_passe = GenererPRENIFetMdp(cin)
-
-#             contribuable.propr_nif = prenif
-#             contribuable.mot_de_passe = mot_de_passe
-#             # contribuable.save()
-
-#             # envoyer_email(email, prenif, mot_de_passe)
-
-#             success_message = "Votre inscription a été réalisée avec succès. Veuillez vérifier votre email."
-#             show_modal = True  # Afficher le modal de succès
-
-#         except ValidationError as e:
-#             # Récupérer le message d'erreur de validation
-#             error_message = str(e)
-#             show_modal = False
-
-#     return render(request, 'myapp/inscription_part2.html', {
-#         'form_data': form_data,  # Passer les données du formulaire à la page
-#         'success_message': success_message,
-#         'error_message': error_message,  # Envoyer le message d'erreur au template
-#         'show_modal': show_modal,
-#     })
 
 def form_part2(request):
-    url = 'https://immatriculation-prenif.onrender.com/get_all_operateurs/'  
-    show_modal = False
+    show_modal = False  # Pour contrôler l'affichage du modal de succès
     success_message = ""
-    form_data = None
-    operateurs = None
+    operateur = None
     error_message = ""  # Pour stocker les messages d'erreur
- 
+
     if request.method == 'POST':
-        # Récupération des données du formulaire de la deuxième partie
         lieu_delivrance = request.POST.get('lieu_delivrance')
         cin = request.POST.get('cin')
         date_delivrance = request.POST.get('date_delivrance')
         contact = request.POST.get('contact')
         fokontany = request.POST.get('fkt_no')
         email = request.POST.get('email')
-    
+
+        form_data = request.session.get('form_data', {})
 
         try:
-            response = requests.get(url, timeout=30)
-            response.raise_for_status()  # Vérifier les erreurs HTTP
-            operateurs = response.json()
-            form_data = request.session.get('form_data', {})  # Récupérer les données de la session
-
             # Appel de la fonction de validation pour CIN et contact
-            # operateurs = valider_cin_et_contact(cin, contact)  # Récupérer les opérateurs
+            operateur= valider_cin_et_contact(cin, contact)
 
-            # Si la validation réussie, continuer le traitement
+            # Si validation réussie, continuer le traitement
             genre_instance = get_object_or_404(Genre, genre=form_data['genre'])
             situation_matrimoniale_instance = get_object_or_404(Sit_matrim, id=form_data['situation_matrimoniale'])
 
@@ -254,15 +156,15 @@ def form_part2(request):
                 fokontany=fokontany,
                 email=email,
             )
-            # contribuable.save()
+            contribuable.save()
 
             prenif, mot_de_passe = GenererPRENIFetMdp(cin)
 
             contribuable.propr_nif = prenif
             contribuable.mot_de_passe = mot_de_passe
-            # contribuable.save()
+            contribuable.save()
 
-            # envoyer_email(email, prenif, mot_de_passe)
+            envoyer_email(email, prenif, mot_de_passe)
 
             success_message = "Votre inscription a été réalisée avec succès. Veuillez vérifier votre email."
             show_modal = True  # Afficher le modal de succès
@@ -273,12 +175,12 @@ def form_part2(request):
             show_modal = False
 
     return render(request, 'myapp/inscription_part2.html', {
-        # 'form_data': form_data,  # Passer les données du formulaire à la page
         'success_message': success_message,
         'error_message': error_message,  # Envoyer le message d'erreur au template
         'show_modal': show_modal,
-        'operateurs': operateurs,  # Passer les opérateurs au template
+        'operateur' : operateur
     })
+
 
 def envoyer_email(email, prenif, mot_de_passe):
     """Envoie un email avec les informations d'inscription."""
