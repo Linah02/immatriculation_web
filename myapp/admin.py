@@ -1,3 +1,26 @@
 from django.contrib import admin
+from .models import Genre,Sit_matrim,Token,Operateur,Country,Parish,City,Locality,Wereda,Fokontany,Logiciel,ModePaiement,NumImpot,CentralRecette,Paiement,Operateurs,Message,FokontanyView,VueTransactionsParQuitEtContribuable,VueSommeParContribuableParAnnee,TransactionDetail,Contribuable 
+admin.site.register(Genre)
+admin.site.register(Sit_matrim)
+admin.site.register(Contribuable)
+admin.site.register(Token)
+admin.site.register(Operateur)
+admin.site.register(Country)
+admin.site.register(Parish)
+admin.site.register(City)
+admin.site.register(Locality)
+admin.site.register(Wereda)
+admin.site.register(Fokontany)
+admin.site.register(Logiciel)
+admin.site.register(ModePaiement)
+admin.site.register(NumImpot)
+admin.site.register(CentralRecette)
+admin.site.register(Paiement)
+admin.site.register(Operateurs)
+admin.site.register(Message)
+admin.site.register(FokontanyView)
+admin.site.register(VueTransactionsParQuitEtContribuable)
+admin.site.register(VueSommeParContribuableParAnnee)
+admin.site.register(TransactionDetail)
 
 # Register your models here.
