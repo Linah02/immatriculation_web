@@ -112,7 +112,7 @@ def valider_cin_et_contact(cin, contact):
     # Vérifier si un opérateur avec ce CIN et ce contact existe
     for operateur in operateurs:
         if operateur.cin == cin and operateur.contact == contact:
-            return operateurs  # Si le CIN et le contact correspondent, on retourne True
+            return True  # Si le CIN et le contact correspondent, on retourne True
 
     # Si aucun opérateur avec ce CIN et contact n'a été trouvé, lever une exception
     raise ValidationError("❌Le CIN ou le contact ne correspond pas.")
@@ -121,7 +121,6 @@ def valider_cin_et_contact(cin, contact):
 def form_part2(request):
     show_modal = False  # Pour contrôler l'affichage du modal de succès
     success_message = ""
-    operateur = None
     error_message = ""  # Pour stocker les messages d'erreur
 
     if request.method == 'POST':
@@ -136,7 +135,7 @@ def form_part2(request):
 
         try:
             # Appel de la fonction de validation pour CIN et contact
-            operateur= valider_cin_et_contact(cin, contact)
+            valider_cin_et_contact(cin, contact)
 
             # Si validation réussie, continuer le traitement
             genre_instance = get_object_or_404(Genre, genre=form_data['genre'])
@@ -178,7 +177,6 @@ def form_part2(request):
         'success_message': success_message,
         'error_message': error_message,  # Envoyer le message d'erreur au template
         'show_modal': show_modal,
-        'operateur' : operateur
     })
 
 

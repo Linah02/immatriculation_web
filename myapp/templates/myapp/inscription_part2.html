@@ -35,17 +35,6 @@
     <style>
     </style>
     <div class="page-container">
- {% if operateurs and operateurs|length > 0 %}
-    <h3>Liste des opérateurs correspondants:</h3>
-    <ul>
-        {% for operateur in operateurs %}
-            <li>CIN: {{ operateur.cin }} | Contact: {{ operateur.contact }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Aucun opérateur correspondant trouvé.</p>
-{% endif %}
-
         <!-- Sidebar et contenu principal côte à côte -->
         <div class="content-wrapper">
             <main class="main-content">
