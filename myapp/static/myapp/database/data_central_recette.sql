@@ -21,6 +21,7 @@ INSERT INTO myapp_numimpot (impot, numero) VALUES
 ('Droit d''Enregistrement', 15),
 ('PENALITE', 40),
 ('AMENDE', 43);
+TRUNCATE TABLE myapp_numimpot RESTART IDENTITY CASCADE;
 
 -- 1
 INSERT INTO myapp_centralrecette (

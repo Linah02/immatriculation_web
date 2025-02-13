@@ -239,7 +239,7 @@ def list_transaction(request):
         transactions = cursor.fetchall()
     
     # Paginer les résultats avec 10 transactions par page
-    paginator = Paginator(transactions, 2)  # 10 transactions par page
+    paginator = Paginator(transactions, 5)  # 10 transactions par page
     page_number = request.GET.get('page')
     transactions = paginator.get_page(page_number)
     
