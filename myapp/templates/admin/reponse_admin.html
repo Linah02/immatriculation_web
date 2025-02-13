@@ -14,17 +14,20 @@
 </head>
 <body>
     <header>
-    {% include 'layout/sidebar_acc.html' %}
+
     {% include 'layout/navbar_admin.html' %}
+    {% include 'layout/sidebar_acceuil.html' %}
+
 
     </header>
     <div class="page-container">
         <!-- Sidebar et contenu principal côte à côte -->
         <div class="content-wrapper">
             <main class="main-content">
+    <h1>Discussions</h1>
+
 <div class="container">
   
-    <h1>Discussions</h1>
 
     <!-- <div class="container" id="discussionContainer"> -->
         {% for message in messages %}
@@ -32,8 +35,12 @@
             <div class="message-info" 
                 {% if message.type_message == 'operateur' %} style="justify-content: flex-end;" {% else %} style="justify-content: flex-start;" {% endif %}>
                 {% if message.type_message == 'contribuable' %}
-                <img src="{{ message.id_contribuable.photo.url }}" alt="Photo de {{ message.id_contribuable.nom }}">
-                <span>{{ message.id_contribuable.nom }}</span>
+                {% if message.id_contribuable.photo %}
+                <img src="{{ message.id_contribuable.photo.url }}" alt="Photo Contribuable">
+            {% else %}
+            <i class="fa fa-user-circle" style="font-size: 30px; margin-left: 10px;"></i>  <!-- Espacement avec margin-left -->
+            {% endif %}
+              <span>{{ message.id_contribuable.nom }}</span>
 
                 {% else %}
                 <span>Opérateur</span>

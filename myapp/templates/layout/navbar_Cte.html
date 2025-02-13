@@ -18,7 +18,7 @@
                 
                 {% for message in messages_non_lus %}
                     <a href="{% url 'view_message_contribuable' message.id %}">
-                        • {{ message.expediteur }} : {{ message.contenu }}
+                        {{ message.contenu }}
                     </a>
                 {% endfor %}
             </div>
@@ -35,7 +35,7 @@
                     {% endif %}
                 </a>
                 <div id="profile-dropdown" class="dropdown-menu">
-                    <a href="{% url 'profil' %}">Voir Profil</a>
+                    <a style="color:white" href="{% url 'profil' %}">Voir Profil</a>
 
                     <form action="{% url 'deconnexion' %}" method="post">
                         {% csrf_token %}

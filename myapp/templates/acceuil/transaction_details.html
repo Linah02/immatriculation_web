@@ -39,7 +39,7 @@
                             {% for transactions in transaction_details %}
                             {% if forloop.first %}
                             
-                            <h1 class="pdf-title">Détails des Transactions - N° Quit {{ transactions.1 }}</h1>
+                            <h2 class="pdf-title">Liste Transactions -  {{ transactions.1 }}</h2>
                             {% endif %}
 
                             {% endfor %}
@@ -58,8 +58,8 @@
                                     {% for transaction in transaction_details %}
                                         {% if forloop.first %}
                                         <tr>
-                                            <td class="title-cell">Numéro quittance</td>
-                                            <td>{{ transaction.1 }}</td>
+                                            <th class="title-cell">Impôt</th>
+                                            <th> N°: {{ transaction.12 }},  {{ transaction.13 }}, {{ transaction.11 }} </th>
                                         </tr>
                                         <tr>
                                             <td class="title-cell">Base</td>
@@ -70,25 +70,13 @@
                                             <td>{{ transaction.9|intcomma }} .Ar</td>
                                         </tr>
                                         <tr>
-                                            <td class="title-cell">Numéro impôt</td>
-                                            <td>{{ transaction.12 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="title-cell">Impôt</td>
-                                            <td>{{ transaction.13 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="title-cell">Impôt Détail</td>
-                                            <td>{{ transaction.11 }}</td><!-- <td>{{ transaction.10 }}</td> -->
-                                        </tr>
-                                        <tr>
                                             <td class="title-cell">Logiciel</td>
                                             <td>{{ transaction.15 }}</td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td class="title-cell">Date de recouvrement</td>
                                             <td>{{ transaction.5 }}</td>
-                                        </tr>
+                                        </tr> -->
                                         {% endif %}
                                     {% endfor %}
                                 {% else %}
@@ -118,7 +106,7 @@
                                         <tr>
                                             <td>{{ transaction.3 }}</td>
                                             <td class="{% if transaction.3 > transaction.4 %}color-red{% endif %}">{{ transaction.2 }}</td>
-                                            <td>{{ transaction.16|intcomma }}</td>
+                                            <td>{{ transaction.16|intcomma }} .Ar</td>
                                         </tr>
                                     {% endfor %}
                                 {% else %}

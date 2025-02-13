@@ -151,7 +151,7 @@ def chart(request):
 
     # Vérifier si l'utilisateur est connecté
     if not id_contribuable:
-        return redirect('login')  # Redirige vers la page de login si non connecté
+        return redirect('connexion')  # Redirige vers la page de login si non connecté
 
     # Récupérer les données depuis la base de données
     with connection.cursor() as cursor:
@@ -176,7 +176,7 @@ def chart_line(request):
 
     # Vérifier si l'utilisateur est connecté
     if not id_contribuable:
-        return redirect('login')  # Redirige vers la page de login si non connecté
+        return redirect('connexion')  # Redirige vers la page de login si non connecté
 
     with connection.cursor() as cursor:
         cursor.execute(
@@ -223,13 +223,14 @@ def list_transaction(request):
 
     # Vérifier si l'utilisateur est connecté
     if not id_contribuable:
-        return redirect('login')  # Redirige vers la page de login si non connecté
+        return redirect('connexion')  # Redirige vers la page de connexion si non connecté
 
     # Créer la requête SQL pour obtenir les transactions du contribuable connecté
     query = """
-        SELECT *
+      SELECT *
         FROM vue_transactions_par_quit_et_contribuable
-        WHERE contribuable = %s;
+        WHERE contribuable = %s
+        ORDER BY CAST(REGEXP_REPLACE(n_quit, '[^0-9]', '', 'g') AS INTEGER) DESC;
     """
     
     # Exécuter la requête SQL
@@ -254,7 +255,7 @@ def filtre_list_transaction(request, min_montant=None, max_montant=None):
 
     # Vérifier si l'utilisateur est connecté
     if not id_contribuable:
-        return redirect('login')  # Redirige vers la page de login si non connecté
+        return redirect('connexion')  # Redirige vers la page de connexion si non connecté
 
     # Récupérer les montants min et max à partir des paramètres GET, uniquement si fournis et valides
     try:
@@ -307,7 +308,7 @@ def profil(request):
 
     # Vérifier si l'utilisateur est connecté
     if not id_contribuable:
-        return redirect('login')  # Redirige vers la page de login si non connecté
+        return redirect('connexion')  # Redirige vers la page de login si non connecté
 
     with connection.cursor() as cursor:
         # Exécutez une requête pour récupérer les informations du contribuable

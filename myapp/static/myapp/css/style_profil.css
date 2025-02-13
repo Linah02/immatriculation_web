@@ -48,10 +48,11 @@
     font-weight: bold;
 }
 
+
 .btn-modifier {
     display: inline-block;
     padding: 10px 20px;
-    background-color: rgb(26, 172, 123);
+    background-color: rgb(167, 202, 190);
     color: white;
     font-size: 16px;
     text-align: center;
@@ -62,7 +63,7 @@
 }
 
 .btn-modifier:hover {
-    background-color: #db0a1c;
+    background-color: #9b9b9b;
 }
 
 .profile-photo {

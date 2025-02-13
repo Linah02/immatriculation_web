@@ -22,8 +22,6 @@
     z-index: 1000; 
     /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  */
 }
-
-/* Styles par défaut des liens */
 .navbar .menu a,
 .navbar .menu-list ul li a {
     color: #8fc3c6; /* Couleur initiale */
@@ -40,7 +38,6 @@
 .navbar.fixed .menu-list ul li a:hover {
     color: #cccccc; /* Couleur légèrement différente au survol */
 }
-
 
 
 .menu {
@@ -73,7 +70,6 @@
     padding: 5px 10px;
     transition: background-color 0.3s, color 0.3s;
 }
-
 .navbar .menu ul li a:hover {
     color: rgb(0, 0, 0); /* Couleur lors du survol */
 }

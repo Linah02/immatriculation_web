@@ -38,7 +38,7 @@
                             {% if contribuable.photo %}
                         <img src="/media/{{ contribuable.photo }}" alt="Photo de {{ contribuable.nom }}" onclick="openPhotoModal()" class="clickable-photo">
                     {% else %}
-                        <img src="{% static 'images/default-avatar.png' %}" alt="Avatar par défaut" onclick="openPhotoModal()" class="clickable-photo">
+                        <img src="{% static 'myapp/images/avatar.png' %}" alt="Avatar par défaut" onclick="openPhotoModal()" class="clickable-photo">
                     {% endif %}
                         </div>
                         <div class="description">
@@ -76,9 +76,11 @@
                         </div>
                        <br>
                        <br>
-                            <button type="reset" class="btn-modifier" onclick="openModal()">Modifier Profil</button>
-                            <button type="button" class="btn-modifier" onclick="openPasswordModal()">Modifier mot de passe</button>
-                    </div>
+                      
+
+                       <button type="reset" class="btn-modifier" onclick="openModal()"> <i  class="fas fa-edit"> Profil</i> </button>
+                       <button type="button" class="btn-modifier" onclick="openPasswordModal()"><i  class="fas fa-edit"> mot de passe</i></button>   </div>
+                </div>
                 </div>
             </main>
         </div>
