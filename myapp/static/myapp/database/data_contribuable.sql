@@ -116,7 +116,7 @@ VALUES
 INSERT INTO myapp_brochure (titre, description, fichier_pdf, date_publication)
 VALUES
     ('Agriculture', 'energie-renouvelable_447', '/brochurespdfs/AGRICULTURE.pdf', '2024-12-01'),
-    ('Education', 'industrie_448', '/brochurespdfs/EDUCATIONpdf', '2024-12-02'),
+    ('Education', 'industrie_448', '/brochurespdfs/EDUCATION.pdf', '2024-12-02'),
     ('Énergie renouvelable', 'industrie_449', '/brochurespdfs/energie-renouvelable_447.pdf', '2024-12-03'),
     ('Industrie', 'industrie_448', '/brochurespdfs/industrie_448.pdf', '2024-12-06'),
     ('Industrie', 'industrie_449', '/brochurespdfs/industrie_449.pdf', '2024-12-07'),
