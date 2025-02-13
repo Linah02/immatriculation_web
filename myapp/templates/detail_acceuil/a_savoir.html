@@ -108,7 +108,7 @@
                     const brochureItem = document.createElement('div');
                     brochureItem.classList.add('brochure-item');
                     brochureItem.innerHTML = `
-                        <iframe src="https://immatriculation-prenif.onrender.com/${brochure.fichier_pdf}" title="${brochure.titre}"></iframe>
+                        <iframe src="https://immatriculation-prenif.onrender.com${brochure.fichier_pdf}" title="${brochure.titre}"></iframe>
                         <p>${brochure.titre}</p>
                         <button onclick="window.open('${baseUrl}${brochure.fichier_pdf}', '_blank')" class="download-btn">
         Télécharger
