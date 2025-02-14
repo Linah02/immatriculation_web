@@ -365,7 +365,6 @@ def modifier_photo_profil(request):
         form = PhotoProfilForm(request.POST, request.FILES, instance=contribuable)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Photo de profil modifiée avec succès.')
             return redirect('profil')  # Redirection après la sauvegarde
         else:
             messages.error(request, 'Erreur lors de la modification de la photo.')
