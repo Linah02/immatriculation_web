@@ -44,8 +44,9 @@
                         <div class="description">
                             <div class="main-content">
                                 <div class="text">
-                                    <p>N° CIN : <span>{{ contribuable.cin }}</span></p>
-                                    <p>N° PRENIF : <span>{{ contribuable.propr_nif }}</span></p>
+                                    <p>N° CIN : <span id="cin">{{ contribuable.cin }}</span></p>
+                                    <p>N° PRENIF : <span id="nif">{{ contribuable.propr_nif }}</span></p>
+
                                 </div>
                             </div>
                         </div>
@@ -169,6 +170,27 @@ window.onclick = function(event) {
 
 </script>
 
+<script>
+    // Fonction pour ajouter un espace tous les 3 chiffres
+function formatNumber(number) {
+    return number
+        .toString()  // Convertir le nombre en chaîne de caractères
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ' ');  // Ajouter un espace tous les 3 chiffres
+}
+
+// Appliquer le formatage au CIN et PRENIF après leur récupération
+const cinElement = document.querySelector('#cin');  // Assurez-vous que l'élément a l'ID #cin
+const nifElement = document.querySelector('#nif');  // Assurez-vous que l'élément a l'ID #nif
+
+if (cinElement) {
+    cinElement.textContent = formatNumber(cinElement.textContent);
+}
+
+if (nifElement) {
+    nifElement.textContent = formatNumber(nifElement.textContent);
+}
+
+</script>
   {% include 'myapp/modifier_mot_de_passe.html' %}
   {% include 'myapp/modifier_profil.html' %}
   {% include 'myapp/modifier_info_perso.html' %}

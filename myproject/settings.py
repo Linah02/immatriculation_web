@@ -26,7 +26,7 @@ SECRET_KEY =config('SECRET_KEY')
 DEBUG = True
 
 # ALLOWED_HOSTS = ['192.168.1.199', 'localhost', '127.0.0.1', '0.0.0.0','192.168.0.185']
-ALLOWED_HOSTS = ['0.0.0.0','immatriculation-prenif.onrender.com']
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','immatriculation-prenif.onrender.com']
 
 SECURE_CONTENT_TYPE_NOSNIFF = False
 X_FRAME_OPTIONS = 'SAMEORIGIN'

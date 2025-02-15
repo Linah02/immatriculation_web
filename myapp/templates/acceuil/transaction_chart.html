@@ -48,11 +48,18 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Récupérer les données depuis le backend
-    const sommes = JSON.parse('{{ sommes|safe }}');  // `sommes` est maintenant en JSON.
-    const labels = sommes.map(s => s.annee); // Extraire les années comme étiquettes
-    const dataMontants = sommes.map(s => s.total_mnt_ver); // Extraire les montants pour les données
-    const detailsTableBody = document.getElementById('detailsTable').querySelector('tbody');
+// Récupérer les données depuis le backend
+const sommes = JSON.parse('{{ sommes|safe }}');  // `sommes` est maintenant en JSON.
+const labels = sommes.map(s => s.annee); // Extraire les années comme étiquettes
+const dataMontants = sommes.map(s => s.total_mnt_ver); // Extraire les montants pour les données
+const detailsTableBody = document.getElementById('detailsTable').querySelector('tbody');
+
+// Fonction pour formater le montant avec un espace tous les 3 chiffres
+function formatMontant(montant) {
+    return montant
+        .toFixed(0)  // Convertir en entier sans décimales
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ' ');  // Ajouter un espace tous les 3 chiffres
+}
 
 // Remplir le tableau avec les données de `sommes`
 sommes.forEach(item => {
@@ -61,18 +68,22 @@ sommes.forEach(item => {
     const anneeCell = document.createElement('td');
     const montantCell = document.createElement('td');
     
-   
     anneeCell.textContent = item.annee;
-    montantCell.textContent = item.total_mnt_ver;
+    
+    // Formater le montant avec des espaces tous les 3 chiffres
+    const montantFormate = formatMontant(item.total_mnt_ver);
+    
+    // Ajouter le suffixe ".Ar" au montant formaté
+    montantCell.textContent = montantFormate + ' .Ar';
     
     // Ajouter les cellules à la ligne
-  
     row.appendChild(anneeCell);
     row.appendChild(montantCell);
     
     // Ajouter la ligne au tableau
     detailsTableBody.appendChild(row);
 });
+
 
     // Initialiser le graphique
     const ctx = document.getElementById('transactionsChart').getContext('2d');
