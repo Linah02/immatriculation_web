@@ -47,7 +47,7 @@
             <tr>
                 <th>N° QUITTANCE</th>
                 <th>IMPOTS</th>
-                <th>N° et libelle BUREAU</th>
+                <th>Lieu et libelle BUREAU</th>
                 <th>MNT à PAYER</th>
                 <th>PAYEE</th>
                 <th>RES à PAYER</th>
@@ -60,7 +60,7 @@
             <tr>
                 <td>{{ transaction.7 }}</td>
                 <td>{{ transaction.5 }}</td>
-                <td>{{ transaction.1 }} _ {{ transaction.2 }}</td>
+                <td>{{ transaction.2 }}_{{ transaction.1 }} </td>
                 <td>{{ transaction.8|intcomma }} .Ar</td>
                 <td>{{ transaction.9|intcomma }} .Ar</td>
                 <td class="{% if transaction.10 > 0 %}highlight-red{% elif transaction.10 == 0 %}highlight-green{% endif %}">
@@ -209,7 +209,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
-
 </body>
-    
-    </html>
+</html>
