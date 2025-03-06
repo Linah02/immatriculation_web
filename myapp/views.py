@@ -11,6 +11,7 @@ from .models import Operateur
 import logging
 import random
 from django.contrib.auth.hashers import check_password, make_password # type: ignore
+from django.core.exceptions import ValidationError
 
 from rest_framework.decorators import api_view # type: ignore
 from rest_framework.response import Response # type: ignore
@@ -102,21 +103,40 @@ def get_all_operateurs(request):
 #     else:
 #         raise ValidationError("Erreur lors de la validation avec l'API.")
 
+
+
 from django.core.exceptions import ValidationError
 from .models import Operateur  # Assurez-vous que le modèle Operateur est importé correctement
 
+
+# def valider_cin_et_contact(cin, contact):
+#     # Récupérer tous les opérateurs depuis la base de données
+#     operateurs = Operateur.objects.all()
+
+#     # Vérifier si un opérateur avec ce CIN et ce contact existe
+#     for operateur in operateurs:
+#         if operateur.cin == cin and operateur.contact == contact:
+#             return True  # Si le CIN et le contact correspondent, on retourne True
+
+#     # Si aucun opérateur avec ce CIN et contact n'a été trouvé, lever une exception
+#     raise ValidationError("❌Le CIN ou le contact ne correspond pas.")
 def valider_cin_et_contact(cin, contact):
-    # Récupérer tous les opérateurs depuis la base de données
-    operateurs = Operateur.objects.all()
+    url = 'https://api-mobile-immatriculation.onrender.com/get_all_operateurs/'
 
-    # Vérifier si un opérateur avec ce CIN et ce contact existe
-    for operateur in operateurs:
-        if operateur.cin == cin and operateur.contact == contact:
-            return True  # Si le CIN et le contact correspondent, on retourne True
+    try:
+        response = requests.get(url, timeout=5)  # Ajoutez un timeout pour éviter les blocages
+        response.raise_for_status()  # Lève une exception si le status_code n'est pas 200
 
-    # Si aucun opérateur avec ce CIN et contact n'a été trouvé, lever une exception
-    raise ValidationError("❌Le CIN ou le contact ne correspond pas.")
+        operateurs = response.json()
 
+        for operateur in operateurs:
+            if operateur['cin'] == cin and operateur['contact'] == contact:
+                return True
+
+        raise ValidationError("❌Le CIN ou le contact ne correspond pas.")
+    
+    except requests.exceptions.RequestException as e:
+        raise ValidationError(f"Erreur de connexion à l'API : {e}")
 
 def form_part2(request):
     show_modal = False  # Pour contrôler l'affichage du modal de succès
