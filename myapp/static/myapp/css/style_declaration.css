@@ -1,0 +1,176 @@
+
+.container  {
+    display: flex;
+    gap: 10px;
+    width: 1000px;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* max-width: 600px; */
+    /* margin: auto; */
+}
+
+h1 {
+    color: #5db8bd;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.form-declaration {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+label {
+    font-size: 16px;
+    color: #717477;
+}
+
+input[type="number"], select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    width: 500px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+input[type="number"]:focus, select:focus {
+    border-color: #5db8bd;
+    outline: none;
+}
+
+button {
+    background-color: #5db8bd;
+    color: #fff;
+    font-size: 16px;
+    padding: 12px;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4fa7a3;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 50px;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.close-btn {
+    color: #717477;
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #5db8bd;
+}
+
+button.btn {
+    margin-top: 15px;
+    width: 45%;
+    background-color: #717477;
+    border-radius: 5px;
+}
+
+button.btn:hover {
+    background-color: #5db8bd;
+}
+
+button#validerBtn {
+    background-color: red;
+}
+
+button#annulerBtn {
+    background-color: #717477;
+}
+
+
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #5db8bd;
+    color: white;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+input[type="checkbox"] {
+    margin: 0;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button.btn {
+    background-color: #5db8bd;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.btn:hover {
+    background-color: #4e9b9a;
+}

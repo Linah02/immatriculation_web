@@ -35,6 +35,8 @@ from myapp.views import mdp_oubliee
 from myapp.acceuil_views import acceuilCte
 from myapp.acceuil_views import home1
 from myapp.acceuil_views import chart
+from myapp.acceuil_views import formDeclarationDE
+from myapp.acceuil_views import listDeclarationDE
 from myapp.acceuil_views import discussion_admin
 from myapp.acceuil_views import view_message
 from myapp.acceuil_views import view_message_contribuable
@@ -84,6 +86,8 @@ urlpatterns = [
     path('D_authentification/', D_authentification, name='D_authentification'),
     path('home1/', home1, name='home1'),
     path('profil/', profil, name='profil'),
+    path('declaration_DE/', formDeclarationDE, name='declaration_DE'),
+    path('listDeclarationDE/', listDeclarationDE, name='listDeclarationDE'),
     path('chart/', chart, name='chart'),
     path('chart_line/', chart_line, name='chart_line'),
     path('discussion_admin/', discussion_admin, name='discussion_admin'),

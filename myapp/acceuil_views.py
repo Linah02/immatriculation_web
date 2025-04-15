@@ -648,3 +648,24 @@ def dashboard(request):
 from django.shortcuts import render
 from .models import VideoPublicite
 
+def formDeclarationDE(request):
+    # contribuable_id = request.session.get('contribuable_id')
+
+    # Récupérer les messages non lus pour l'opérateur connecté
+    # operator = request.user.operateur
+    # messages_non_lus = Message.objects.filter(id_contribuable_id=contribuable_id, notifié=False)
+    
+    # Passer les messages au template
+    return render(request, 'acceuil/declarationDE.html')
+
+
+def listDeclarationDE(request):
+    # contribuable_id = request.session.get('contribuable_id')
+
+    # Récupérer les messages non lus pour l'opérateur connecté
+    # operator = request.user.operateur
+    # messages_non_lus = Message.objects.filter(id_contribuable_id=contribuable_id, notifié=False)
+    
+    # Passer les messages au template
+    return render(request, 'acceuil/listeDE.html')
+
