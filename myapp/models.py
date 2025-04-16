@@ -189,7 +189,23 @@ class Paiement(models.Model):
     def __str__(self):
         return f"Paiement {self.n_quit} - Contribuable {self.id_contribuable}"
 
+class Taux_droit_enregistrement(models.Model):
+    type_droit = models.CharField(max_length=200)
+    taux = models.IntegerField(default=0)
 
+    def __str__(self):
+        return f"Type_droit_enregistrement {self.type_droit}"
+    
+class Declaration(models.Model):
+    id_contribuable = models.ForeignKey("Contribuable",on_delete=models.CASCADE)
+    base_imposable = models.DecimalField(max_digits=20, decimal_places=2)
+    id_tde = models.ForeignKey(Taux_droit_enregistrement, on_delete=models.SET_NULL, null=True)
+    mnt_ap = models.DecimalField(max_digits=12, decimal_places=2)
+    date_declaration = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Declaration {self.id_contribuable} - typeDE {self.id_tde}"
+    
 class Operateurs(models.Model):
     nom = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
@@ -313,6 +329,9 @@ class TransactionDetail(models.Model):
 
     def __str__(self):
         return f"Contribuable {self.contribuable} - Quittance {self.n_quit}"
+
+
+
 
 
 from django.db import models

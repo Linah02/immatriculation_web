@@ -647,15 +647,57 @@ def dashboard(request):
 
 from django.shortcuts import render
 from .models import VideoPublicite
+from .models import Taux_droit_enregistrement
+from .models import Declaration
+from decimal import Decimal
+
+def calculer_montant_droit(montant_base, taux):
+    base = Decimal(montant_base)
+    taux_decimal = Decimal(taux) / 100  # si le taux est en %
+    montant = base * taux_decimal
+    return montant if montant >= 10000 else Decimal('10000')
 
 def formDeclarationDE(request):
-    # contribuable_id = request.session.get('contribuable_id')
+    contribuable_id = request.session.get('contribuable_id')
 
-    # Récupérer les messages non lus pour l'opérateur connecté
-    # operator = request.user.operateur
-    # messages_non_lus = Message.objects.filter(id_contribuable_id=contribuable_id, notifié=False)
-    
-    # Passer les messages au template
+    if request.method == 'POST':
+        montant_base = request.POST.get('montant_base')
+        type_droit_id = request.POST.get('type_droit')
+
+        try:
+            taux_obj = Taux_droit_enregistrement.objects.get(id=type_droit_id)
+        except Taux_droit_enregistrement.DoesNotExist:
+            messages.error(request, "Type de droit invalide.")
+            return redirect('form_declaration')  # Nom correct de ton url
+
+        taux = taux_obj.taux
+        montant_ap = calculer_montant_droit(montant_base, taux)
+
+        if 'confirm' in request.POST:
+            if not contribuable_id:
+                messages.error(request, "Utilisateur non authentifié.")
+                return redirect('login')
+
+            contribuable = Contribuable.objects.get(id=contribuable_id)
+
+            Declaration.objects.create(
+                id_contribuable=contribuable,
+                base_imposable=montant_base,
+                id_tde=taux_obj,
+                mnt_ap=montant_ap
+            )
+            messages.success(request, f"Déclaration enregistrée. Montant à payer : {montant_ap} Ar")
+            return redirect('listDeclarationDE')
+
+        # Afficher le modal de confirmation
+        return render(request, 'acceuil/declarationDE.html', {
+            'montant_calcule': montant_ap,
+            'base': montant_base,
+            'type_droit_id': type_droit_id,
+            'taux': taux,
+            'confirmation_requise': True
+        })
+
     return render(request, 'acceuil/declarationDE.html')
 
 

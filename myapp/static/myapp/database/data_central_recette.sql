@@ -18,6 +18,7 @@ INSERT INTO myapp_modepaiement (sens) VALUES
 ('Virement');
 
 
+
 INSERT INTO myapp_numimpot (impot, numero) VALUES
 ('Droit d''Enregistrement', 15),
 ('PENALITE', 40),

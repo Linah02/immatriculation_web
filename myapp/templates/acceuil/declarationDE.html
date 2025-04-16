@@ -5,31 +5,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'myapp/css/style_acceuil.css' %}">
     <title>Formulaire de Déclaration</title>
+
+    <link rel="stylesheet" href="{% static 'myapp/css/style_acceuil.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/css/style_declaration.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'myapp/css/style_declaration.css' %}">   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
- 
-  <style>
- 
-  </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
         {% include 'layout/navbar_Cte.html' %}
     </header>
+
     <div class="page-container">
         <div class="content-wrapper">
             <aside class="sidebar">
                 {% include 'layout/sidebar_acceuil.html' %}
             </aside>
+
             <main class="main-content">
                 <h2>Déclaration de Droit d'Enregistrement</h2>
 
                 <div class="container">
-                    
-                    
-                    <form action="#" method="post" class="form-declaration" id="declarationForm">
+                    <form action="" method="post" class="form-declaration" id="declarationForm">
+                        {% csrf_token %}
                         <div class="form-group">
                             <label for="montant_base">Montant de la Base Imposable</label>
                             <input type="number" id="montant_base" name="montant_base" placeholder="Entrez le montant de base en .Ar" required min="10000">
@@ -39,84 +38,57 @@
                             <label for="type_droit">Type de Droit d'Enregistrement</label>
                             <select id="type_droit" name="type_droit" required>
                                 <option value="">Sélectionnez un type de droit</option>
-                                <option value="vente">Vente d'immeuble</option>
-                                <option value="donation">Donation</option>
-                                <option value="succession">Succession</option>
+                                <option value="1">Vente d'immeuble</option>
+                                <option value="2">Donation</option>
+                                <option value="3">Succession</option>
                             </select>
                         </div>
                         <br>
                         <button type="submit" class="btn-submit">Calculer</button>
                     </form>
-    
-                        
                 </div>
             </main>
         </div>
     </div>
+
     <footer>
         {% include 'layout/footer_acceuil.html' %}
     </footer>
-    
 
-</body>
-
-        <!-- Modal -->
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn" id="closeBtn">&times;</span>
-                <h2>Droit à payer</h2>
-                <p id="result"></p>
-                <button id="validerBtn" class="btn">Valider</button>
-                <button id="annulerBtn" class="btn">Annuler</button>
-            </div>
+    {% if confirmation_requise %}
+    <!-- Modal -->
+    <div class="modal" id="modal" style="display: block;">
+        <div class="modal-content">
+            <span class="close-btn" id="closeBtn">&times;</span>
+            <h3>Confirmation</h3>
+            <p>Montant du droit d'enregistrement : <strong>{{ montant_calcule|intcomma }} Ar</strong></p>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="montant_base" value="{{ base }}">
+                <input type="hidden" name="type_droit" value="{{ type_droit_id }}">
+                <input type="hidden" name="confirm" value="true">
+                <button type="submit">Confirmer</button>
+                <button type="button" id="annulerBtn" class="btn">Annuler</button>
+            </form>
         </div>
-    
-        <script>
-            document.getElementById('declarationForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-    
-                const montantBase = parseFloat(document.getElementById('montant_base').value);
-                const typeDroit = document.getElementById('type_droit').value;
-    
-                let taux = 0;
-    
-                // Exemple de taux, vous pouvez le remplacer par les valeurs réelles ou les récupérer depuis une base de données
-                if (typeDroit === 'vente') {
-                    taux = 0.07; // 7% pour la vente
-                } else if (typeDroit === 'donation') {
-                    taux = 0.05; // 5% pour la donation
-                } else if (typeDroit === 'succession') {
-                    taux = 0.06; // 6% pour la succession
-                }
-    
-                const result = montantBase * taux;
-                const minimum = 10000; // Minimum à percevoir
-    
-                // Appliquer le minimum
-                const montantAPayer = result < minimum ? minimum : result;
-    
-                // Afficher le résultat dans le modal
-                document.getElementById('result').textContent = `Montant à payer: ${montantAPayer.toFixed(2)} Ar`;
-    
-                // Afficher le modal
-                document.getElementById('modal').style.display = 'block';
-            });
-    
-            // Fermeture du modal
-            document.getElementById('closeBtn').addEventListener('click', function() {
-                document.getElementById('modal').style.display = 'none';
-            });
-    
-            // Valider le résultat
-            document.getElementById('validerBtn').addEventListener('click', function() {
-                alert("Déclaration validée !");
-                document.getElementById('modal').style.display = 'none';
-            });
-    
-            // Annuler la déclaration
-            document.getElementById('annulerBtn').addEventListener('click', function() {
-                document.getElementById('modal').style.display = 'none';
-            });
-        </script>
-    
-    </html>
+    </div>
+    {% endif %}
+
+    <script>
+        // Fermer le modal si bouton Annuler ou croix cliquée
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('modal');
+            const closeBtn = document.getElementById('closeBtn');
+            const annulerBtn = document.getElementById('annulerBtn');
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => modal.style.display = 'none');
+            }
+
+            if (annulerBtn) {
+                annulerBtn.addEventListener('click', () => modal.style.display = 'none');
+            }
+        });
+    </script>
+</body>
+</html>

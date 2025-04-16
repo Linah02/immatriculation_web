@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Genre,Sit_matrim,Token,Operateur,Country,Parish,City,Locality,Wereda,Fokontany,Logiciel,ModePaiement,NumImpot,CentralRecette,Paiement,Operateurs,Message,FokontanyView,VueTransactionsParQuitEtContribuable,VueSommeParContribuableParAnnee,TransactionDetail,Contribuable 
+from .models import Genre,Sit_matrim,Token,Operateur,Country,Parish,City,Locality,Wereda,Fokontany,Logiciel,ModePaiement,NumImpot,CentralRecette,Paiement,Operateurs,Message,FokontanyView,VueTransactionsParQuitEtContribuable,VueSommeParContribuableParAnnee,TransactionDetail,Contribuable,Taux_droit_enregistrement,Declaration 
 admin.site.register(Genre)
 admin.site.register(Sit_matrim)
 admin.site.register(Contribuable)
@@ -22,5 +22,6 @@ admin.site.register(FokontanyView)
 admin.site.register(VueTransactionsParQuitEtContribuable)
 admin.site.register(VueSommeParContribuableParAnnee)
 admin.site.register(TransactionDetail)
-
+admin.site.register(Taux_droit_enregistrement)
+admin.site.register(Declaration)
 # Register your models here.
