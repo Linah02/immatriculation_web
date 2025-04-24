@@ -668,7 +668,7 @@ def formDeclarationDE(request):
             taux_obj = Taux_droit_enregistrement.objects.get(id=type_droit_id)
         except Taux_droit_enregistrement.DoesNotExist:
             messages.error(request, "Type de droit invalide.")
-            return redirect('form_declaration')  # Nom correct de ton url
+            return redirect('formDeclarationDE')  # Nom correct de ton url
 
         taux = taux_obj.taux
         montant_ap = calculer_montant_droit(montant_base, taux)
@@ -676,7 +676,7 @@ def formDeclarationDE(request):
         if 'confirm' in request.POST:
             if not contribuable_id:
                 messages.error(request, "Utilisateur non authentifié.")
-                return redirect('login')
+                return redirect('connexion')
 
             contribuable = Contribuable.objects.get(id=contribuable_id)
 
