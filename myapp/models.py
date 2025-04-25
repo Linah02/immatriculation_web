@@ -303,7 +303,7 @@ class VueDeclarationParContribuable(models.Model) :
     contribuable = models.IntegerField()
     nom_type_droit = models.CharField(max_length=100)
     date_declaration = models.DateField()
-    base_imposable = models.DecimalField(max_digit=10, decimal_places=2)
+    base_imposable = models.DecimalField(max_digits=10, decimal_places=2)
     mnt_ap = models.DecimalField(max_digit=10, decimal_places=2)
     class Meta:
         managed = False 
