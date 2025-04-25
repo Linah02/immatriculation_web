@@ -716,7 +716,7 @@ def listDeclarationDE(request):
     # Requête SQL vers la vue
     query = """
         SELECT * FROM vue_declarations_par_contribuable
-        WHERE contribuable = %s
+        WHERE id_contribuable_id = %s
         ORDER BY date_declaration DESC;
     """
 
