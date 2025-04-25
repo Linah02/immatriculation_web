@@ -650,6 +650,7 @@ from .models import VideoPublicite
 from .models import Taux_droit_enregistrement
 from .models import Declaration
 from decimal import Decimal
+from .models import VueDeclarationParContribuable
 
 def calculer_montant_droit(montant_base, taux):
     base = Decimal(montant_base)
@@ -702,12 +703,35 @@ def formDeclarationDE(request):
 
 
 def listDeclarationDE(request):
-    # contribuable_id = request.session.get('contribuable_id')
+    # Récupérer les messages non lus de type 'opérateur'
+    messages_non_lus = Message.objects.filter(notifié=False, type_message='operateur')
 
-    # Récupérer les messages non lus pour l'opérateur connecté
-    # operator = request.user.operateur
-    # messages_non_lus = Message.objects.filter(id_contribuable_id=contribuable_id, notifié=False)
-    
-    # Passer les messages au template
-    return render(request, 'acceuil/listeDE.html')
+    # Récupérer l'ID du contribuable connecté depuis la session
+    id_contribuable = request.session.get('contribuable_id')
+
+    # Vérifier si l'utilisateur est connecté
+    if not id_contribuable:
+        return redirect('connexion')  # Redirige vers la page de connexion si non connecté
+
+    # Requête SQL vers la vue
+    query = """
+        SELECT * FROM vue_declarations_par_contribuable
+        WHERE contribuable = %s
+        ORDER BY date_declaration DESC;
+    """
+
+    # Exécuter la requête
+    with connection.cursor() as cursor:
+        cursor.execute(query, [id_contribuable])
+        declarations = cursor.fetchall()
+
+    # Paginer les résultats (5 déclarations par page)
+    paginator = Paginator(declarations, 5)
+    page_number = request.GET.get('page')
+    declarations = paginator.get_page(page_number)
+
+    return render(request, 'acceuil/listeDE.html', {
+        'declarations': declarations,
+        'messages_non_lus': messages_non_lus
+    })
 

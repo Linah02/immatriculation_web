@@ -299,6 +299,16 @@ class VueRecouvrementsEtPaiementsParAnnee(models.Model):
         managed = False  # Indique que Django ne gère pas ce modèle (pas de migrations)
         db_table = 'vue_recouvrements_et_paiements_par_annee'  # Nom de la vue dans la base de données
 
+class VueDeclarationParContribuable(models.Model) :
+    contribuable = models.IntegerField()
+    nom_type_droit = models.CharField(max_length=100)
+    date_declaration = models.DateField()
+    base_imposable = models.DecimalField(max_digit=10, decimal_places=2)
+    mnt_ap = models.DecimalField(max_digit=10, decimal_places=2)
+    class Meta:
+        managed = False 
+        db_table = 'vue_declarations_par_contribuable'
+
 
 
 class TransactionDetail(models.Model):

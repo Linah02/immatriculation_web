@@ -224,3 +224,16 @@ with connection.cursor() as cursor:
     cursor.execute(sql_create_view)
 
 print("Vue créée avec succès.")
+
+
+CREATE VIEW vue_declarations_par_contribuable AS
+SELECT
+    d.id_contribuable_id,
+    tde.type_droit AS nom_type_droit,
+    d.date_declaration::date AS date_declaration,
+    d.base_imposable,
+    d.mnt_ap
+FROM
+    myapp_declaration d
+JOIN
+    myapp_taux_droit_enregistrement tde ON d.id_tde_id = tde.id;

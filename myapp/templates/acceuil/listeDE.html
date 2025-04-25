@@ -9,9 +9,7 @@
     <title>liste de Déclaration</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'myapp/css/list_style.css' %}">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
- 
   <style>
  
   </style>
@@ -43,52 +41,40 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for declaration in declarations %}
                                 <tr>
                                     <td><input type="checkbox" class="select-row"></td>
-                                    <td>12345</td>
-                                    <td>500,000 Ar</td>
-                                    <td>Vente</td>
-                                    <td>35,000 Ar</td>
+                                    <td>{{ declaration.0 }}</td> <!-- ID Contribuable -->
+                                    <td>{{ declaration.3|intcomma }} Ar</td> <!-- base_imposable -->
+                                    <td>{{ declaration.1 }}</td> <!-- nom_type_droit -->
+                                    <td>{{ declaration.4|intcomma }} Ar</td> <!-- mnt_ap -->
                                 </tr>
+                                {% empty %}
                                 <tr>
-                                    <td><input type="checkbox" class="select-row"></td>
-                                    <td>67890</td>
-                                    <td>1,000,000 Ar</td>
-                                    <td>Donation</td>
-                                    <td>50,000 Ar</td>
+                                    <td colspan="5">Aucune déclaration trouvée.</td>
                                 </tr>
-                                <tr>
-                                    <td><input type="checkbox" class="select-row"></td>
-                                    <td>11223</td>
-                                    <td>300,000 Ar</td>
-                                    <td>Succession</td>
-                                    <td>18,000 Ar</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" class="select-row"></td>
-                                    <td>12345</td>
-                                    <td>500,000 Ar</td>
-                                    <td>Vente</td>
-                                    <td>35,000 Ar</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" class="select-row"></td>
-                                    <td>67890</td>
-                                    <td>1,000,000 Ar</td>
-                                    <td>Donation</td>
-                                    <td>50,000 Ar</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" class="select-row"></td>
-                                    <td>11223</td>
-                                    <td>300,000 Ar</td>
-                                    <td>Succession</td>
-                                    <td>18,000 Ar</td>
-                                </tr>
-                              
-                                <!-- Ajoutez d'autres lignes ici -->
+                                {% endfor %}
                             </tbody>
+                            
                         </table>
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if declarations.has_previous %}
+                                    <a href="?page=1">&laquo; Première</a>
+                                    <a href="?page={{ declarations.previous_page_number }}">Précédente</a>
+                                {% endif %}
+                        
+                                <span class="current">
+                                    Page {{ declarations.number }} sur {{ declarations.paginator.num_pages }}.
+                                </span>
+                        
+                                {% if declarations.has_next %}
+                                    <a href="?page={{ declarations.next_page_number }}">Suivante</a>
+                                    <a href="?page={{ declarations.paginator.num_pages }}">Dernière &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                        
                         <div class="actions">
                             <button type="submit" class="btn">Supprimer les Sélectionnés</button>
                             <button type="button" class="btn" onclick="viewDetails()">Voir Détails</button>
