@@ -34,7 +34,7 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox" id="select-all" onclick="toggleSelectAll()"></th>
-                                    <th>ID Contribuable</th>
+                                    <th>Date de la déclaration</th>
                                     <th>Montant Base Imposable</th>
                                     <th>Type de Droit</th>
                                     <th>Montant à payer</th>
@@ -44,7 +44,7 @@
                                 {% for declaration in declarations %}
                                 <tr>
                                     <td><input type="checkbox" class="select-row"></td>
-                                    <td>{{ declaration.0 }}</td> <!-- ID Contribuable -->
+                                    <td>{{ declaration.2 }}</td> <!-- ID Contribuable -->
                                     <td>{{ declaration.3|intcomma }} Ar</td> <!-- base_imposable -->
                                     <td>{{ declaration.1 }}</td> <!-- nom_type_droit -->
                                     <td>{{ declaration.4|intcomma }} Ar</td> <!-- mnt_ap -->
@@ -76,7 +76,6 @@
                         </div>
                         
                         <div class="actions">
-                            <button type="submit" class="btn">Supprimer les Sélectionnés</button>
                             <button type="button" class="btn" onclick="viewDetails()">Voir Détails</button>
                         </div>
                     </form>
