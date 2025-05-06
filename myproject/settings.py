@@ -189,7 +189,7 @@ EMAIL_HOST = 'smtp.gmail.com'  # Par exemple, pour Gmail
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'raharinirinalina@gmail.com'
-EMAIL_HOST_PASSWORD = 'byss zrbi eekk agkt'
+EMAIL_HOST_PASSWORD = 'ywfx wlht flhi typd'
 DEFAULT_FROM_EMAIL = 'raharinirinalina@gmail.com'
 
 
