@@ -305,6 +305,8 @@ class VueDeclarationParContribuable(models.Model) :
     date_declaration = models.DateField()
     base_imposable = models.DecimalField(max_digits=10, decimal_places=2)
     mnt_ap = models.DecimalField(max_digits=10, decimal_places=2)
+    taux = models.IntegerField(default=0)
+
     class Meta:
         managed = False 
         db_table = 'vue_declarations_par_contribuable'

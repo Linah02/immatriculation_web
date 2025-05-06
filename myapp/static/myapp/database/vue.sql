@@ -232,7 +232,8 @@ SELECT
     tde.type_droit AS nom_type_droit,
     d.date_declaration::date AS date_declaration,
     d.base_imposable,
-    d.mnt_ap
+    d.mnt_ap,
+    tde.taux as taux
 FROM
     myapp_declaration d
 JOIN

@@ -37,6 +37,7 @@
                                     <th>Date de la déclaration</th>
                                     <th>Montant Base Imposable</th>
                                     <th>Type de Droit</th>
+                                    <th>Taux en %</th>
                                     <th>Montant à payer</th>
                                 </tr>
                             </thead>
@@ -47,6 +48,7 @@
                                     <td>{{ declaration.2 }}</td> <!-- ID Contribuable -->
                                     <td>{{ declaration.3|intcomma }} Ar</td> <!-- base_imposable -->
                                     <td>{{ declaration.1 }}</td> <!-- nom_type_droit -->
+                                    <td>{{ declaration.5 }} %</td> <!-- nom_type_droit -->
                                     <td>{{ declaration.4|intcomma }} Ar</td> <!-- mnt_ap -->
                                 </tr>
                                 {% empty %}
