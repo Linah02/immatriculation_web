@@ -11,66 +11,65 @@
         <img src="{% static 'myapp/images/Logo-DGI.jpg' %}" alt="Logo">
     </div>
 
-
     <ul>
         <li>
             <a href="{% url 'accueils' %}">
-                <i  style="color: #068e8c;"  class="fas fa-home sidebar-icon"></i>
+                <i class="fas fa-home sidebar-icon" style="color: #068e8c;"></i>
                 Accueil
             </a>
         </li>
+
         <li class="has-dropdown">
-            <a href="#" onclick="toggleDropdown('historique-dropdown')">
-                <i style="color: #068e8c;" class="fas fa-file-alt sidebar-icon"></i>
+            <a href="#" onclick="toggleDropdown('declaration-dropdown')">
+                <i class="fas fa-file-alt sidebar-icon" style="color: #068e8c;"></i>
                 Déclaration 
-                <i style="color: #068e8c;" class="fas fa-caret-down dropdown-icon"></i>
+                <i class="fas fa-caret-down dropdown-icon" style="color: #068e8c;"></i>
             </a>
-        
-            <ul id="historique-dropdown" class="dropdown-menu-sidebar">
+            <ul id="declaration-dropdown" class="dropdown-menu-sidebar">
                 <li style="color: #068e8c; background-color:#dadada;">
                     <a href="{% url 'declaration_DE' %}">Droit d'enregistrement</a>
                 </li>
             </ul>
         </li>
-        
+
         <li class="has-dropdown">
             <a href="#" onclick="toggleDropdown('historique-dropdown')">
-                <i style="color: #068e8c;" class="fas fa-history sidebar-icon"></i>
+                <i class="fas fa-history sidebar-icon" style="color: #068e8c;"></i>
                 Historique
-                <i  style="color: #068e8c;"  class="fas fa-caret-down dropdown-icon"></i>
+                <i class="fas fa-caret-down dropdown-icon" style="color: #068e8c;"></i>
             </a>
-            <!-- Sous-menu pour Historique -->
             <ul id="historique-dropdown" class="dropdown-menu-sidebar">
-                <li style="color: #068e8c; background-color:#dadada;"><a href="{% url 'listDeclarationDE' %}">Mes déclarations</a></li>
-                <li style="color: #068e8c; background-color:#dadada;"><a href="{% url 'list_transaction' %}">Transaction</a></li>
+                <li style="color: #068e8c; background-color:#dadada;">
+                    <a href="{% url 'listDeclarationDE' %}">Mes déclarations</a>
+                </li>
+                <li style="color: #068e8c; background-color:#dadada;">
+                    <a href="{% url 'list_transaction' %}">Transaction</a>
+                </li>
             </ul>
         </li>
+
         <li class="has-dropdown">
             <a href="#" onclick="toggleDropdown('chart-dropdown')">
-                <i style="color: #068e8c ; " class="fas fa-chart-bar sidebar-icon"></i>
+                <i class="fas fa-chart-bar sidebar-icon" style="color: #068e8c;"></i>
                 Chart
-                <i style="color: #068e8c;"  class="fas fa-caret-down dropdown-icon"></i>
+                <i class="fas fa-caret-down dropdown-icon" style="color: #068e8c;"></i>
             </a>
-            <!-- Sous-menu pour Chart -->
             <ul id="chart-dropdown" class="dropdown-menu-sidebar">
-                <li style="color: #068e8c; background-color:#dadada;"><a href="{% url 'chart' %}">Montant par année de paiement</a></li>
-                <!-- <li style="color: #068e8c; background-color:#dadada;"><a href="{% url 'chart_line' %}">Montant par année de recouvrement</a></li> -->
+                <li style="color: #068e8c; background-color:#dadada;">
+                    <a href="{% url 'chart' %}">Montant par année de paiement</a>
+                </li>
             </ul>
         </li>
 
-
-        <li >
-        <form action="{% url 'deconnexion' %}" method="post" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" class="btns-deconnexions">
-                <i class="fas fa-sign-out-alt sidebar-icon"></i> Déconnexion
-            </button>
-        </form>
+        <li>
+            <form action="{% url 'deconnexion' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btns-deconnexions">
+                    <i class="fas fa-sign-out-alt sidebar-icon"></i> Déconnexion
+                </button>
+            </form>
         </li>
-        
     </ul>
-</div>
-
 </aside>
 
 <style>
