@@ -92,6 +92,7 @@
                                 <tr>
                                     <th>NUM REC</th>
                                     <th>Date de Paiement</th>
+                                    <th>Mode paiement</th>
                                     <th>Montant</th>
                                 </tr>
                             </thead>
@@ -101,6 +102,7 @@
                                         <tr>
                                             <td>{{ transaction.3 }}</td>
                                             <td class="{% if transaction.3 > transaction.4 %}color-red{% endif %}">{{ transaction.2 }}</td>
+                                            <td>{{ transaction.14 }}</td>
                                             <td>{{ transaction.16|intcomma }} .Ar</td>
                                         </tr>
                                     {% endfor %}
