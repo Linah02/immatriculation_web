@@ -45,10 +45,10 @@
                                 {% for declaration in declarations %}
                                 <tr>
                                     <td><input type="checkbox" class="select-row"></td>
-                                    <td>{{ declaration.2 }}</td> <!-- ID Contribuable -->
+                                    <td>{{ declaration.2 }}</td> 
                                     <td>{{ declaration.3|intcomma }} Ar</td> <!-- base_imposable -->
                                     <td>{{ declaration.1 }}</td> <!-- nom_type_droit -->
-                                    <td>{{ declaration.5 }} %</td> <!-- nom_type_droit -->
+                                    <td>{{ declaration.5 }} %</td> 
                                     <td>{{ declaration.4|intcomma }} Ar</td> <!-- mnt_ap -->
                                 </tr>
                                 {% empty %}
@@ -81,8 +81,6 @@
                             <button type="button" class="btn" onclick="viewDetails()">Voir Détails</button>
                         </div>
                     </form>
-    
-                        
                 </div>
             </main>
         </div>

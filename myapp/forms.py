@@ -12,5 +12,4 @@ class ContribuableForm(forms.ModelForm):
             'mot_de_passe', 
             'fokontany', 
             'photo',
-            # Ajoutez d'autres champs nécessaires
         ]

@@ -32,7 +32,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Les lignes de données seront ajoutées ici par JavaScript -->
+                                <!-- JavaScript -->
                             </tbody>
                         </table>
                         
@@ -49,21 +49,19 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 // Récupérer les données depuis le backend
-const sommes = JSON.parse('{{ sommes|safe }}');  // `sommes` est maintenant en JSON.
-const labels = sommes.map(s => s.annee); // Extraire les années comme étiquettes
-const dataMontants = sommes.map(s => s.total_mnt_ver); // Extraire les montants pour les données
+const sommes = JSON.parse('{{ sommes|safe }}');  
+const labels = sommes.map(s => s.annee); 
+const dataMontants = sommes.map(s => s.total_mnt_ver); 
 const detailsTableBody = document.getElementById('detailsTable').querySelector('tbody');
 
-// Fonction pour formater le montant avec un espace tous les 3 chiffres
 function formatMontant(montant) {
     return montant
-        .toFixed(0)  // Convertir en entier sans décimales
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ' ');  // Ajouter un espace tous les 3 chiffres
+        .toFixed(0)  
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ' '); 
 }
 
-// Remplir le tableau avec les données de `sommes`
 sommes.forEach(item => {
-    const row = document.createElement('tr'); // Créer une nouvelle ligne de tableau
+    const row = document.createElement('tr'); 
     
     const anneeCell = document.createElement('td');
     const montantCell = document.createElement('td');

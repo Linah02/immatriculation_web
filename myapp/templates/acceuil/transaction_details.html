@@ -24,7 +24,7 @@
             <main class="main-content">
 
                     <div class="container">
-                        <!-- Formulaire de recherche avec filtres -->
+                        <!-- Formulaire de filtres -->
                         <form action="{% url 'filtre_detail_transaction' n_quit %}" method="GET">
                             <div class="search-container">
                                 <input type="number" id="min" name="min" placeholder="MIN" value="{{ request.GET.min }}">
@@ -45,7 +45,6 @@
                             {% endfor %}
                             {% endif %}
 
-                        <!-- Détails de la transaction -->
                         <table class="details-table">
                             
                             <tbody>
@@ -64,14 +63,7 @@
                                             <td class="title-cell">Montant à Payer</td>
                                             <td>{{ transaction.9|intcomma }} .Ar</td>
                                         </tr>
-                                        <!-- <tr>
-                                            <td class="title-cell">Logiciel</td>
-                                            <td>{{ transaction.15 }}</td>
-                                        </tr> -->
-                                        <!-- <tr>
-                                            <td class="title-cell">Date de recouvrement</td>
-                                            <td>{{ transaction.5 }}</td>
-                                        </tr> -->
+                                        
                                         {% endif %}
                                     {% endfor %}
                                 {% else %}

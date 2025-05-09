@@ -50,10 +50,10 @@
 }
 
 .profile-image {
-    width: 24px; /* Taille de l'icône font-awesome */
+    width: 24px; 
     height: 24px;
-    border-radius: 50%; /* Cercle pour une apparence de photo de profil */
-    object-fit: cover; /* Ajuste l'image pour remplir sans déformation */
+    border-radius: 50%; 
+    object-fit: cover; 
 }
 
 
@@ -98,7 +98,7 @@
     background: none;
     border: none;
     text-decoration: none;
-    color: #c61618; /* Couleur du lien */
+    color: #c61618; 
     cursor: pointer;
     padding: 0;
     font-size: 14px;
@@ -107,8 +107,8 @@
 }
 
     .btns-deconnexion:hover {
-        color: #000000; /* Couleur du lien */
-        text-decoration: none; /* Supprime le soulignement au survol */
+        color: #000000;
+        text-decoration: none; 
     }
     .dropdown-menu a:hover {
         background-color: #f0f0f0;
@@ -116,18 +116,14 @@
 </style>
 
 <script>
-    // Fonction pour basculer l'affichage d'un menu déroulant spécifique
     function toggleDropdown(menuId) {
         const dropdownMenu = document.getElementById(menuId);
-        // Fermer tous les autres menus
         document.querySelectorAll('.dropdown-menu').forEach(menu => {
             if (menu !== dropdownMenu) menu.style.display = 'none';
         });
-        // Basculer l'affichage du menu sélectionné
         dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
     }
 
-    // Ferme tous les menus déroulants si l'utilisateur clique en dehors
     window.onclick = function(event) {
         if (!event.target.closest('.notification-icon') && 
             !event.target.closest('.message-icon') && 
@@ -139,9 +135,9 @@
     window.onscroll = function() {
         const navbar = document.querySelector('.navbar');
         if (window.pageYOffset > 0) {
-            navbar.classList.add('fixed'); // Ajoute la classe 'fixed' lorsque l'utilisateur fait défiler
+            navbar.classList.add('fixed'); 
         } else {
-            navbar.classList.remove('fixed'); // Retire la classe 'fixed' quand l'utilisateur est en haut
+            navbar.classList.remove('fixed'); 
         }
     };
 
@@ -153,7 +149,5 @@
             }).focus();
         });
     });
-
-
 
 </script>

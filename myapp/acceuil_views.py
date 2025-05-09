@@ -1,20 +1,14 @@
 import logging
 logger = logging.getLogger(__name__)
-# from django.http import HttpResponse
 from django.template.loader import render_to_string
-# from weasyprint import HTML
 from django.utils import timezone
-# from django.http import HttpResponse
-# from weasyprint import HTML
 from django.core.paginator import Paginator
 from firebase_admin.messaging import Message, Notification, send
 
 import pdfkit
 from pdfkit import configuration
 from django.http import HttpResponse
-# from django.template.loader import render_to_string
 from firebase_admin import messaging
-
 
 import json
 from django.shortcuts import render, redirect,get_object_or_404
@@ -24,7 +18,6 @@ from .models import VueRecouvrementsEtPaiementsParAnnee
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import Message, Operateurs,Contribuable
-
 
 import imaplib
 import email
@@ -54,16 +47,11 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 
 def acceuils(request):
-    # Sélectionner les vidéos publiées
     videos_publiees = VideoPublicite.objects.filter(statut='publie').order_by('-date_publication')
     brochures = Brochure.objects.all()  # Récupère toutes les brochures
-
-    # Configuration de la pagination
     paginator = Paginator(brochures, 5)  # 5 brochures par page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
-    # Rendu du template d'accueil avec les vidéos publiées et les brochures paginées
     return render(request, 'acceuil/accueils.html', {
         'videos_publiees': videos_publiees,
         'page_obj': page_obj,  # Ajoutez l'objet de page à votre contexte
@@ -82,8 +70,6 @@ def get_brochures(request):
         page_obj = paginator.get_page(page_number)
     except:
         return JsonResponse({'error': 'Page non valide'}, status=400)
-
-    # Formatage des brochures pour la réponse JSON
     brochures_data = [
         {
             'titre': brochure.titre,
@@ -288,17 +274,14 @@ def filtre_list_transaction(request, min_montant=None, max_montant=None):
 
     logger.debug(f"Requête SQL : {query}")
 
-    # Exécuter la requête SQL
     with connection.cursor() as cursor:
         cursor.execute(query, params)
         transactions = cursor.fetchall()
 
-    # Passer la requête SQL dans le contexte pour l'afficher dans le template
     context = {
         'transactions': transactions,
     }
 
-    # Retourner le rendu avec les transactions filtrées
     return render(request, 'acceuil/liste_transaction.html', context)
 
 
@@ -306,19 +289,16 @@ def profil(request):
     id_contribuable = request.session.get('contribuable_id')
     messages_non_lus = Message.objects.filter(notifié=False,type_message='operateur')
 
-    # Vérifier si l'utilisateur est connecté
     if not id_contribuable:
-        return redirect('connexion')  # Redirige vers la page de login si non connecté
+        return redirect('connexion')  
 
     with connection.cursor() as cursor:
-        # Exécutez une requête pour récupérer les informations du contribuable
         cursor.execute("SELECT * FROM myapp_contribuable WHERE id = %s", [id_contribuable])
-        contribuable = cursor.fetchone()  # Récupérer la première ligne de résultats
+        contribuable = cursor.fetchone()  
 
     if contribuable:
-        # Préparer les données pour le template
         contribuable_info = {
-            'id': contribuable[0],  # Adaptez les indices selon votre structure de table
+            'id': contribuable[0],  
             'nom': contribuable[1],
             'prenom': contribuable[2],
             'email': contribuable[10],
@@ -327,25 +307,20 @@ def profil(request):
             'propr_nif': contribuable[18],
             'cin':contribuable[6],
             'mot_de_passe': contribuable[13],
-            # Ajoutez d'autres champs selon votre modèle
         }
     else:
-        contribuable_info = {}  # Aucune information trouvée
+        contribuable_info = {}  
 
     return render(request, 'myapp/profil.html', {'contribuable': contribuable_info,'messages_non_lus':messages_non_lus})
 
 def get_transaction_details(request, n_quit, mnt_ap, reste_a_payer):
     messages_non_lus = Message.objects.filter(notifié=False,type_message='operateur')
 
-    # Récupérer l'ID du contribuable à partir de la session utilisateur
     id_contribuable = request.session.get('contribuable_id')
-
-    # Vérifier si l'utilisateur est connecté
     if not id_contribuable:
-        return redirect('login')  # Redirige vers la page de login si non connecté
+        return redirect('login')  
 
 
-    # Préparation de la requête SQL
     sql_query = """
         SELECT 
             contribuable, 
@@ -371,39 +346,32 @@ def get_transaction_details(request, n_quit, mnt_ap, reste_a_payer):
             contribuable = %s AND n_quit = %s;
     """
 
-    # Exécuter la requête SQL
     with connection.cursor() as cursor:
         # Logger la requête
         logger.info("Exécution de la requête SQL : SELECT * FROM vue_detail_transactions_par_quit_et_contribuable WHERE contribuable = %d AND n_quit = '%s'", id_contribuable, n_quit)
 
         cursor.execute(sql_query, [id_contribuable, n_quit])  # Assurez-vous que n_quit est une chaîne
         
-        # Récupérer tous les résultats
         transaction_details = cursor.fetchall()
 
-    # Formater la requête pour l'afficher dans le template
     sql_query_formatted = f"SELECT contribuable, n_quit, date_paiement, annee_de_paiement, annee_recouvrement, date_debut, date_fin, base, mnt_ap, nimp AS NIMP, imp_detail, numero, impot, sens, logiciel FROM vue_detail_transactions_par_quit_et_contribuable WHERE contribuable = {id_contribuable} AND n_quit = '{n_quit}'"
 
-    # Passer la requête et les résultats au template
     return render(request, 'acceuil/transaction_details.html', {
         'transaction_details': transaction_details,
         'sql_query': sql_query_formatted,
-        'montant': mnt_ap,  # Montant passé dans l'URL
+        'montant': mnt_ap,  
         'reste': reste_a_payer, 
-        'n_quit':n_quit,'messages_non_lus':messages_non_lus  # Utilisation de la requête formatée
+        'n_quit':n_quit,'messages_non_lus':messages_non_lus  
     })
 
 
 
 
 def filtre_detail_transaction(request, n_quit):
-    # Initialisation de variables pour les filtres
     min_montant = request.GET.get('min')
     max_montant = request.GET.get('max')
     date_min = request.GET.get('date_min')
     date_max = request.GET.get('date_max')
-    
-    # Créer la requête SQL avec les filtres
     query = """
         SELECT *
         FROM vue_detail_transactions_par_quit_et_contribuable
@@ -411,7 +379,6 @@ def filtre_detail_transaction(request, n_quit):
     """
     params = [n_quit]
     
-    # Ajouter des filtres pour le montant
     if min_montant:
         query += " AND montant >= %s"
         params.append(min_montant)
@@ -419,7 +386,6 @@ def filtre_detail_transaction(request, n_quit):
         query += " AND montant <= %s"
         params.append(max_montant)
     
-    # Ajouter des filtres pour la date
     if date_min:
         query += " AND date_paiement >= %s"
         params.append(date_min)
@@ -427,33 +393,25 @@ def filtre_detail_transaction(request, n_quit):
         query += " AND date_paiement <= %s"
         params.append(date_max)
 
-    # Exécution de la requête SQL
     with connection.cursor() as cursor:
         cursor.execute(query, params)
         transaction_details = cursor.fetchall()
 
-    # Formater la requête pour affichage avec les valeurs réelles
     formatted_query = query % tuple(map(repr, params))  # Remplace les %s par les valeurs réelles
     
-    # Passez les transaction_details sous le nom 'transaction_details' dans le contexte
     context = {
         'transaction_details': transaction_details,  # Assurez-vous que c'est 'transactions' et non 'transaction_details'
         'n_quit': n_quit,
         'query': formatted_query,  # Passer la requête formatée pour débogage
     }
-    # Rendre la page avec les résultats filtrés
     return render(request, 'acceuil/transaction_details.html', context)
 
 
 def export_transaction_pdf(request, n_quit):
-    # Définir le contribuable pour la requête SQL
     id_contribuable = request.session.get('contribuable_id')
-
-    # Vérifier si l'utilisateur est connecté
     if not id_contribuable:
-        return redirect('login')  # Redirige vers la page de login si non connecté
+        return redirect('login')  
 
-    # Exécuter la requête SQL pour obtenir les détails de la transaction
     sql_query = """
         SELECT 
             contribuable, 
@@ -480,36 +438,28 @@ def export_transaction_pdf(request, n_quit):
 
     with connection.cursor() as cursor:
         cursor.execute(sql_query, [id_contribuable, n_quit])
-        transaction_details = cursor.fetchall()  # Récupère les résultats sous forme de liste
+        transaction_details = cursor.fetchall()  
 
-    # Passer les résultats au template pour générer le HTML
     html_string = render_to_string('acceuil/pdf_template.html', {
         'transaction_details': transaction_details,
         'n_quit': n_quit,
     })
 
-    # Configuration de pdfkit
     path_wkhtmltopdf = r'C:\Program Files (x86)\wkhtmltopdf\bin\wkhtmltopdf.exe'  # Mettez le bon chemin ici
     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 
-    # Créer le PDF avec pdfkit
     pdf = pdfkit.from_string(html_string, False, configuration=config)
 
-    # Retourner le PDF comme réponse
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="transaction_{n_quit}.pdf"'
     return response
 
 def view_message_contribuable(request, message_id):
-    # Récupérer le message
     message = get_object_or_404(Message, id=message_id)
     
-    # Marquer le message comme lu
     if not message.notifié:
         message.notifié = True
         message.save()
-
-    # Rediriger vers la vue de réponse
     return redirect('discussion')
 
 
@@ -520,7 +470,6 @@ def discussion(request):
     if request.method == 'POST':
         contenu = request.POST.get('contenu')
         fichier_joint = request.FILES.get('fichier_joint')
-        # Enregistrement du message dans la base de données
         message = Message.objects.create(
             contenu=contenu,
             fichier_joint=fichier_joint,
@@ -530,7 +479,6 @@ def discussion(request):
             date_envoi=timezone.now()
         )
 
-    # Récupérer les messages pour cet utilisateur, triés par date
     messages = Message.objects.filter(id_contribuable=contribuable_id).order_by('date_envoi')
     messages_non_lus = Message.objects.filter(notifié=False,type_message='operateur')
     
@@ -539,29 +487,18 @@ def discussion(request):
 
 
 def reponse_admin(request,id_contribuable):
-    # Récupérer l'id_contribuable depuis les paramètres GET de l'URL
-    # contribuable_id = 6
 
     try:
         contribuable_id = Contribuable.objects.get(id=id_contribuable)
     except Contribuable.DoesNotExist:
         return render(request, 'admin/message.html', {'error': 'Contribuable non trouvé'})
 
-    # # Vérifier si l'id_contribuable est fourni et est valide
-    # if not contribuable_id:
-    #     return render(request, 'error.html', {'message': "L'ID du contribuable est requis."})
-    
-    # # Récupérer le contribuable ou retourner une erreur 404 s'il n'existe pas
-    # contribuable = get_object_or_404(Contribuable, id=contribuable_id)
-    
-    # Récupérer l'opérateur par défaut
     operateur = Operateurs.objects.get(id=1)  # Remplacer si l'opérateur par défaut doit être déterminé dynamiquement
 
     if request.method == 'POST':
         contenu = request.POST.get('contenu')
         fichier_joint = request.FILES.get('fichier_joint')
         
-        # Enregistrement du message dans la base de données
         message = Message.objects.create(
             contenu=contenu,
             fichier_joint=fichier_joint,
@@ -571,10 +508,7 @@ def reponse_admin(request,id_contribuable):
             date_envoi=timezone.now()
         )
         
-        # Appel à la fonction d'envoi de notification après la création du message
-        # send_notification_to_admin(message)
 
-    # Récupérer les messages pour cet utilisateur, triés par date
     messages_non_lus = Message.objects.filter(id_operateur=1, notifié=False)
     messages = Message.objects.filter(id_contribuable=contribuable_id).order_by('date_envoi')
 
@@ -592,14 +526,12 @@ def discussion_admin(request):
         return render(request, 'admin/message.html', {'error': 'Opérateur non trouvé'})
     messages_non_lus = Message.objects.filter(id_operateur=1, notifié=False)
     
-    # messages_non_lus = Message.objects.filter(id_operateur=operator, notifié=False).order_by('date_envoi')
     return render(request, 'admin/message.html', {'messages_non_lus': messages_non_lus})
 
 
 def view_message(request, message_id):
     message = get_object_or_404(Message, id=message_id)
     
-    # Marquer le message comme lu
     if not message.notifié:
         message.notifié = True
         message.save()
@@ -612,37 +544,16 @@ def view_message(request, message_id):
 def notifier_message_cont(request):
     contribuable_id = request.session.get('contribuable_id')
 
-    # Récupérer les messages non lus pour l'opérateur connecté
-    # operator = request.user.operateur
     messages_non_lus = Message.objects.filter(id_contribuable_id=contribuable_id, notifié=False)
     
-    # Passer les messages au template
     return render(request, 'layout/navbar_admin.html', {'messages_non_lus': messages_non_lus})
 
 
 
 # @login_required
 def dashboard(request):
-    # Récupérer les messages non lus pour l'opérateur connecté
-    # operator = request.user.operateur
     messages_non_lus = Message.objects.filter(id_operateur=1, notifié=False)
-    
-    # Passer les messages au template
     return render(request, 'layout/navbar_admin.html', {'messages_non_lus': messages_non_lus})
-
-
-
-# def dashboard(request):
-#     # Récupérer les informations de session
-#     contribuable_id = request.session.get('contribuable_id')
-#     prenif = request.session.get('prenif')
-#     email = request.session.get('email')
-
-#     return render(request, 'acceuil/dashboard.html', {
-#         'contribuable_id': contribuable_id,
-#         'prenif': prenif,
-#         'email': email
-#     })
 
 
 from django.shortcuts import render
@@ -654,7 +565,7 @@ from .models import VueDeclarationParContribuable
 
 def calculer_montant_droit(montant_base, taux):
     base = Decimal(montant_base)
-    taux_decimal = Decimal(taux) / 100  # si le taux est en %
+    taux_decimal = Decimal(taux) / 100  
     montant = base * taux_decimal
     return montant if montant >= 10000 else Decimal('10000')
 
@@ -669,7 +580,7 @@ def formDeclarationDE(request):
             taux_obj = Taux_droit_enregistrement.objects.get(id=type_droit_id)
         except Taux_droit_enregistrement.DoesNotExist:
             messages.error(request, "Type de droit invalide.")
-            return redirect('formDeclarationDE')  # Nom correct de ton url
+            return redirect('formDeclarationDE')  
 
         taux = taux_obj.taux
         montant_ap = calculer_montant_droit(montant_base, taux)
@@ -690,7 +601,6 @@ def formDeclarationDE(request):
             messages.success(request, f"Déclaration enregistrée. Montant à payer : {montant_ap} Ar")
             return redirect('listDeclarationDE')
 
-        # Afficher le modal de confirmation
         return render(request, 'acceuil/declarationDE.html', {
             'montant_calcule': montant_ap,
             'base': montant_base,
@@ -703,29 +613,20 @@ def formDeclarationDE(request):
 
 
 def listDeclarationDE(request):
-    # Récupérer les messages non lus de type 'opérateur'
     messages_non_lus = Message.objects.filter(notifié=False, type_message='operateur')
-
-    # Récupérer l'ID du contribuable connecté depuis la session
     id_contribuable = request.session.get('contribuable_id')
-
-    # Vérifier si l'utilisateur est connecté
     if not id_contribuable:
-        return redirect('connexion')  # Redirige vers la page de connexion si non connecté
-
-    # Requête SQL vers la vue
+        return redirect('connexion')  
     query = """
         SELECT * FROM vue_declarations_par_contribuable
         WHERE id_contribuable_id = %s
         ORDER BY date_declaration DESC;
     """
 
-    # Exécuter la requête
     with connection.cursor() as cursor:
         cursor.execute(query, [id_contribuable])
         declarations = cursor.fetchall()
 
-    # Paginer les résultats (5 déclarations par page)
     paginator = Paginator(declarations, 5)
     page_number = request.GET.get('page')
     declarations = paginator.get_page(page_number)
@@ -734,4 +635,3 @@ def listDeclarationDE(request):
         'declarations': declarations,
         'messages_non_lus': messages_non_lus
     })
-

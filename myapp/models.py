@@ -14,10 +14,6 @@ class Sit_matrim(models.Model):
     def __str__(self):
         return self.situation
 
-# class User_token(models.Model):
-#     id_contribuable = models.IntegerField()
-#     tokenid
-
 class Contribuable(models.Model):
     # Colonnes déjà présentes
     nom = models.CharField(max_length=100)
@@ -254,12 +250,12 @@ class FokontanyView(models.Model):
     capital = models.CharField(max_length=255)
 
     class Meta:
-        managed = False  # Indique à Django de ne pas essayer de créer ou de modifier cette table
+        managed = False  # Django de ne pas essayer de créer ou de modifier cette table
         db_table = 'v_getfokontany'
 
 class VueTransactionsParQuitEtContribuable(models.Model):
-    contribuable = models.IntegerField()  # Changez cela si c'est juste un ID
-    n_quit = models.CharField(max_length=50, primary_key=True)  # Numéro quittance comme clé primaire
+    contribuable = models.IntegerField()  
+    n_quit = models.CharField(max_length=50, primary_key=True)  
     mont_ap = models.DecimalField(max_digits=20, decimal_places=2)  # Montant à payer
     total_payee = models.DecimalField(max_digits=20, decimal_places=2)  # Total payé
     reste_ap = models.DecimalField(max_digits=20, decimal_places=2)  # Reste à payer
@@ -282,22 +278,22 @@ class VueSommeParContribuableParAnnee(models.Model):
     total_mnt_ver = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        managed = False  # Indique que Django ne doit pas gérer les migrations pour ce modèle
-        db_table = 'vue_somme_par_contribuable_par_annee'  # Nom de votre vue dans la base de données
-        unique_together = (('contribuable', 'annee'),)  # Si vous voulez traiter ce couple comme unique
+        managed = False  
+        db_table = 'vue_somme_par_contribuable_par_annee'  
+        unique_together = (('contribuable', 'annee'),)  
 
 
 
 
 class VueRecouvrementsEtPaiementsParAnnee(models.Model):
-    contribuable = models.IntegerField()  # Utilisez IntegerField pour l'ID du contribuable
-    annee_recouvrement = models.IntegerField()  # Pour l'année de recouvrement
-    total_recouvrement_annuel = models.DecimalField(max_digits=10, decimal_places=2)  # Montant total des recouvrements
-    total_paye_annuel = models.DecimalField(max_digits=10, decimal_places=2)  # Montant total payé
+    contribuable = models.IntegerField()  
+    annee_recouvrement = models.IntegerField()  
+    total_recouvrement_annuel = models.DecimalField(max_digits=10, decimal_places=2)  
+    total_paye_annuel = models.DecimalField(max_digits=10, decimal_places=2) 
 
     class Meta:
-        managed = False  # Indique que Django ne gère pas ce modèle (pas de migrations)
-        db_table = 'vue_recouvrements_et_paiements_par_annee'  # Nom de la vue dans la base de données
+        managed = False 
+        db_table = 'vue_recouvrements_et_paiements_par_annee' 
 
 class VueDeclarationParContribuable(models.Model) :
     contribuable = models.IntegerField()
@@ -314,10 +310,10 @@ class VueDeclarationParContribuable(models.Model) :
 
 
 class TransactionDetail(models.Model):
-    contribuable = models.IntegerField()  # Utilisez IntegerField pour l'ID du contribuable
+    contribuable = models.IntegerField() 
     n_quit = models.CharField(max_length=50)
     date_paiement = models.DateField()
-    numrec = models.IntegerField(null=True, blank=True,default=0)  # N° de créance
+    numrec = models.IntegerField(null=True, blank=True,default=0)  
     annee_de_paiement = models.IntegerField()
     annee_recouvrement = models.IntegerField()
     date_debut = models.DateField()
@@ -334,8 +330,8 @@ class TransactionDetail(models.Model):
 
 
     class Meta:
-        managed = False  # Indique que Django ne doit pas essayer de créer ou modifier cette table
-        db_table = 'vue_detail_transactions_par_quit_et_contribuable'  # Nom de la vue dans la base de données
+        managed = False  
+        db_table = 'vue_detail_transactions_par_quit_et_contribuable'  
         verbose_name = 'Transaction Detail'
         verbose_name_plural = 'Transaction Details'
 

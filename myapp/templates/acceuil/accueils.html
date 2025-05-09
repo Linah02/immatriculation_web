@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="{% static 'myapp/css/footer_style.css' %}"> -->
     <title>{% block title %}Page d'Accueil{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -13,10 +12,10 @@
             position: absolute;
             width: 380px;
             height: 150px;
-            top: 620px; /* Place l'élément 50px depuis le haut */
-            left: 1%; /* Centre horizontalement */
+            top: 620px; 
+            left: 1%; 
             background: transparent;
-            overflow: hidden; /* Assure que les pseudo-éléments restent à l'intérieur */
+            overflow: hidden; 
         }
         .form {
             position: absolute;
@@ -26,40 +25,38 @@
         }
         .middle-container h6 {
     font-family: 'Montserrat', sans-serif;
-    color: white; /* Couleur du texte */
-    font-weight: normal; /* Texte non gras */
-    letter-spacing: 2px; /* Espace entre chaque alphabet */
-    overflow: hidden; /* Pour éviter que le texte déborde */
-    white-space: nowrap; /* Évite le retour à la ligne */
+    color: white; 
+    font-weight: normal; 
+    letter-spacing: 2px; 
+    overflow: hidden; 
+    white-space: nowrap;
 }
 
 .animated-text {
-    display: inline-block; /* Nécessaire pour l'animation */
+    display: inline-block; 
     position: relative;
-    animation: slide-in-out 20s infinite; /* Durée et répétition infinie */
+    animation: slide-in-out 20s infinite; 
 }
-
-/* Définir l'animation */
+/* animation */
 @keyframes slide-in-out {
     0% {
-        transform: translateX(-100%); /* Texte hors écran à gauche */
+        transform: translateX(-100%); 
         opacity: 0;
     }
     20% {
-        opacity: 1; /* Texte devient visible */
+        opacity: 1; 
     }
     50% {
-        transform: translateX(0); /* Texte atteint sa position normale */
+        transform: translateX(0); 
     }
     80% {
-        opacity: 1; /* Texte reste visible */
+        opacity: 1; 
     }
     100% {
-        transform: translateX(100%); /* Texte sort vers la droite */
+        transform: translateX(100%);
         opacity: 0;
     }
 }
-
     </style>
 </head>
 <body>
@@ -67,17 +64,13 @@
     </header>
     <body>
         <div id="logo">
-        <!-- Inclusion du logo -->
         {% include 'detail_acceuil/logo.html' %}
     </div>
-        <!-- Middle Container -->
         <div class="middle-container">
             <div class="form">
                 <h6 class="animated-text">innovante, transparente et pilier de l'émergence</h6>
             </div>
         </div>
-        
-        <!-- Inclusion de la liste de vidéos -->
         <div id="video">
             {% include 'detail_acceuil/list_video.html' %}
         </div>
@@ -87,7 +80,6 @@
         <br>
         <div id="role">
             {% include 'detail_acceuil/role.html' %}
-
         </div>
         <br>
         <br>
@@ -113,15 +105,10 @@
 </body>
 
 <script>
-    // Attacher un événement clic à chaque div
     document.querySelectorAll('.clickable-div').forEach((div, index) => {
         div.addEventListener('click', () => {
             alert(`Vous avez cliqué sur l'élément ${index + 1}`);
-            // Vous pouvez rediriger vers une autre page avec :
-            // window.location.href = 'url_de_destination';
         });
     });
 </script>
-
-
 </html>

@@ -64,14 +64,9 @@
                     {% csrf_token %}
                     <div class="message-input">
                         <div class="textarea-file">
-                            <!-- Textarea à gauche -->
                             <textarea placeholder="Écrivez votre message ici..." name="contenu" required></textarea>
-                            
-                            <!-- Input fichier à droite -->
                             <input type="file" name="fichier_joint" accept=".pdf,.jpg,.png">
                         </div>
-                        
-                        <!-- Bouton envoyer en icône à gauche -->
                         <button class="btn-envoyer" type="submit">
                             <i class="fa fa-paper-plane" aria-hidden="true"></i>
                         </button>

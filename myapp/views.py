@@ -125,7 +125,7 @@ def valider_cin_et_contact(cin, contact):
 
     try:
         response = requests.get(url, timeout=5)  # Ajoutez un timeout pour éviter les blocages
-        response.raise_for_status()  # Lève une exception si le status_code n'est pas 200
+        response.raise_for_status() 
 
         operateurs = response.json()
 
@@ -139,9 +139,9 @@ def valider_cin_et_contact(cin, contact):
         raise ValidationError(f"Erreur de connexion à l'API : {e}")
 
 def form_part2(request):
-    show_modal = False  # Pour contrôler l'affichage du modal de succès
+    show_modal = False  
     success_message = ""
-    error_message = ""  # Pour stocker les messages d'erreur
+    error_message = ""  
 
     if request.method == 'POST':
         lieu_delivrance = request.POST.get('lieu_delivrance')
@@ -154,10 +154,8 @@ def form_part2(request):
         form_data = request.session.get('form_data', {})
 
         try:
-            # Appel de la fonction de validation pour CIN et contact
             valider_cin_et_contact(cin, contact)
 
-            # Si validation réussie, continuer le traitement
             genre_instance = get_object_or_404(Genre, genre=form_data['genre'])
             situation_matrimoniale_instance = get_object_or_404(Sit_matrim, id=form_data['situation_matrimoniale'])
 
@@ -186,16 +184,15 @@ def form_part2(request):
             envoyer_email(email, prenif, mot_de_passe)
 
             success_message = "Votre inscription a été réalisée avec succès. Veuillez vérifier votre email."
-            show_modal = True  # Afficher le modal de succès
+            show_modal = True  
 
         except ValidationError as e:
-            # Récupérer le message d'erreur de validation
             error_message = str(e)
             show_modal = False
 
     return render(request, 'myapp/inscription_part2.html', {
         'success_message': success_message,
-        'error_message': error_message,  # Envoyer le message d'erreur au template
+        'error_message': error_message,  
         'show_modal': show_modal,
     })
 
@@ -236,8 +233,8 @@ def envoyer_sms(contact, prenif, mot_de_passe):
     try:
         client.messages.create(
             body=message_body,
-            from_=settings.TWILIO_PHONE_NUMBER,  # Numéro Twilio fourni par le service
-            to=contact  # Numéro du bénéficiaire
+            from_=settings.TWILIO_PHONE_NUMBER,  
+            to=contact  
         )
         return True
     except Exception as e:
@@ -259,10 +256,8 @@ def login(request):
                 request.session['email'] = contribuable.email
                 return redirect('D_authentification')  # Redirigez vers la vue pour la confirmation 2FA
             else:
-                # Si le mot de passe est incorrect, afficher une erreur
                 return render(request, 'myapp/login.html', {'error': 'Mot de passe incorrect'})
         except Contribuable.DoesNotExist:
-            # Si l'utilisateur n'existe pas, afficher une erreur
             return render(request, 'myapp/login.html', {'error': 'Email non trouvé'})
     return render(request, 'myapp/login.html')
 
@@ -291,12 +286,10 @@ def search_province(request):
         return JsonResponse(formatted_data, safe=False)
 
 def deconnexion(request):
-    # Supprimez l'ID du contribuable de la session pour déconnecter l'utilisateur
     if 'id_contribuable' in request.session:
         del request.session['id_contribuable']
         
-    # Redirigez vers la page de connexion (ou autre page de votre choix)
-    return redirect('login')  # Remplacez 'login' par le nom de la vue de la page de connexion
+    return redirect('connexion')  
 
 def mdp_oubliee(request):
     return render(request, 'myapp/mdp_oubli.html')  # Rediriger vers la page d'accueil
@@ -372,13 +365,11 @@ def GenererPRENIFetMdp(cin):
 
 
 def modifier_photo_profil(request):
-    # Récupérer l'ID du contribuable connecté depuis la session
     id_contribuable = request.session.get('contribuable_id')
 
     if not id_contribuable:
-        return redirect('login')  # Redirige vers la page de login si non connecté
+        return redirect('connexion')  # Redirige vers la page de login si non connecté
 
-    # Charger le contribuable avec l'ID récupéré
     contribuable = get_object_or_404(Contribuable, id=id_contribuable)
 
     if request.method == 'POST':
@@ -406,21 +397,16 @@ from django.contrib.auth.hashers import check_password # type: ignore
 from django.contrib.auth.hashers import make_password, check_password # type: ignore
 
 def modifier_mot_de_passe(request):
-    # Récupérer l'ID du contribuable connecté depuis la session
     id_contribuable = request.session.get('contribuable_id')
 
-    # Vérifier si l'utilisateur est connecté
     if not id_contribuable:
-        return redirect('login')  # Redirige vers la page de connexion si non connecté
-
-    # Récupérer l'utilisateur connecté
+        return redirect('login')  
     try:
         contribuable = Contribuable.objects.get(pk=id_contribuable)
     except Contribuable.DoesNotExist:
         messages.error(request, "Utilisateur introuvable.")
-        return redirect('login')
+        return redirect('connexion')
 
-    # Vérification pour hacher les mots de passe non hachés
     if not contribuable.mot_de_passe.startswith("pbkdf2_"):  # Vérifie si le mot de passe est déjà haché
         contribuable.mot_de_passe = make_password(contribuable.mot_de_passe)
         contribuable.save()
@@ -430,20 +416,17 @@ def modifier_mot_de_passe(request):
         new_password = request.POST.get('new_password')
         confirm_password = request.POST.get('confirm_password')
 
-        # Vérifier si le mot de passe actuel est correct
         if check_password(old_password, contribuable.mot_de_passe):
-            # Vérifier si les nouveaux mots de passe correspondent
             if new_password == confirm_password:
                 contribuable.mot_de_passe = make_password(new_password)  # Hacher et mettre à jour le mot de passe
                 contribuable.save()
-                # messages.success(request, 'Votre mot de passe a été modifié avec succès.')
-                return redirect('profil')  # Redirige vers la page de profil
+                return redirect('profil') 
             else:
                 messages.error(request, 'Les nouveaux mots de passe ne correspondent pas.')
         else:
             messages.error(request, 'Le mot de passe actuel est incorrect.')
 
-    return redirect('profil')  # Retourne la page de profil
+    return redirect('profil') 
 
 
 class PhotoProfilForm(forms.ModelForm):
@@ -452,14 +435,10 @@ class PhotoProfilForm(forms.ModelForm):
         fields = ['photo'] 
 
 def modifier_contribuable(request):
-    # Récupérer l'ID du contribuable connecté depuis la session
     id_contribuable = request.session.get('contribuable_id')
-
-    # Vérifier si l'utilisateur est authentifié
     if not id_contribuable:
-        return redirect('login')  # Redirige vers la page de login si non connecté
+        return redirect('connexion')  
 
-    # Charger le contribuable avec l'ID récupéré
     contribuable = get_object_or_404(Contribuable, id=id_contribuable)
 
     if request.method == 'POST':
@@ -467,7 +446,7 @@ def modifier_contribuable(request):
         if  form.is_valid():
             form.save()
             messages.success(request, 'Profil modifié avec succès.')
-            return redirect('profil')  # Redirection après la sauvegarde
+            return redirect('profil') 
         else:
             for field, errors in form.errors.items():
                 for error in errors:
@@ -487,7 +466,7 @@ def modifier_infos_personnelles(request):
     id_contribuable = request.session.get('contribuable_id')
 
     if not id_contribuable:
-        return redirect('login')
+        return redirect('connexion')
 
     contribuable = get_object_or_404(Contribuable, id=id_contribuable)
 
@@ -508,13 +487,10 @@ class ContribuableForm(forms.ModelForm):
         model = Contribuable
         fields = ['nom', 'prenom', 'email', 'contact', 'fokontany']  # Assurez-vous que les champs sont corrects
 
-    # Rendre 'mot_de_passe' et 'photo' optionnels
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['mot_de_passe'].required = False
         self.fields['fokontany'].required = False
-        # self.fields['photo'].required = False
 
 def deconnexion(request):
     request.session.flush()
-    return redirect('connexion')  # Redirige vers la page d'accueil
+    return redirect('connexion')  
