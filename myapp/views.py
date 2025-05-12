@@ -333,7 +333,7 @@ def D_authentification(request):
             
             # Vérifier si le code entré est correct
             if entered_code == correct_code:
-                return redirect('list_transaction')  # Rediriger vers la page d'accueil
+                return redirect('listDeclarationDE')  # Rediriger vers la page d'accueil
             else:
                 return render(request, 'myapp/D_authentification.html', {'error': 'Le code est incorrect. Veuillez réessayer.'})
 
